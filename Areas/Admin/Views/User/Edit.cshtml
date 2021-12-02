@@ -1,0 +1,41 @@
+﻿@model GameHeaven.ViewModels.UserViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Edit User @Model.User.UserProperties.Email</h6>
+        </div>
+        <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div class="form-group">
+                <input asp-for="User.UserProperties.Email" type="hidden" value="@Model.User.UserProperties.Email">
+                <label asp-for="User.Roles" class="control-label"></label>
+                <select asp-for="User.Roles" asp-items="Model.Roles" class="form-control" multiple >
+                    </select>
+                <span asp-validation-for="User.Roles" class="text-danger"></span>
+            </div>
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+             </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -1,0 +1,93 @@
+﻿@using GameHeaven.ViewModels
+@model ViewModelBase
+@{
+}
+
+<!--
+    START: Sign Form
+
+    Additional Classes:
+        .nk-sign-form-light
+-->
+<div class="nk-sign-form">
+    <div class="nk-gap-5"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 offset-lg-4 col-md-6 offset-md-3">
+                <div class="nk-sign-form-container">
+                    <div class="nk-sign-form-toggle h3">
+                        <a href="#" class="nk-sign-form-login-toggle active">Log In</a>
+                        <a href="#" class="nk-sign-form-register-toggle">Register</a>
+                    </div>
+                    <div class="nk-gap-2"></div>
+                    <!-- START: Login Form -->
+                    <form asp-action="Login" class="nk-sign-form-login active" asp-controller="Authentication" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="@Model.UserLoginRequestDto.Email" class="control-label"></label>
+                            <input asp-for="@Model.UserLoginRequestDto.Email" class="form-control" />
+                            <span asp-validation-for="@Model.UserLoginRequestDto.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.UserLoginRequestDto.Password" class="control-label"></label>
+                            <input asp-for="@Model.UserLoginRequestDto.Password" class="form-control" />
+                            <span asp-validation-for="@Model.UserLoginRequestDto.Password" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="nk-btn nk-btn-color-white link-effect-4 float-right">Log In</button>
+
+                        <div class="clearfix"></div>
+                        <div class="nk-gap-1"></div>
+                        <a class="nk-sign-form-lost-toggle float-right" href="#">Lost Password?</a>
+                    </form>
+                    <!-- END: Login Form -->
+                    <!-- START: Lost Password Form -->
+                    <form asp-action="ForgotPassword" class="nk-sign-form-lost" asp-controller="Authentication" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="@Model.UserForgotPasswordRequestDto.Email" class="control-label"></label>
+                            <input asp-for="@Model.UserForgotPasswordRequestDto.Email" class="form-control" />
+                            <span asp-validation-for="@Model.UserForgotPasswordRequestDto.Email" class="text-danger"></span>
+                        </div>
+                        <div class="nk-gap-2"></div>
+                        <button type="submit" class="nk-btn nk-btn-color-white link-effect-4 float-right">Log In</button>
+                    </form>
+                    <!-- END: Lost Password Form -->
+                    <!-- START: Register Form -->
+
+                    <form class="nk-sign-form-register" asp-action="Register" asp-controller="Authentication" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="@Model.UserRegistrationDto.UserName" class="control-label"></label>
+                            <input asp-for="@Model.UserRegistrationDto.UserName" class="form-control" />
+                            <span asp-validation-for="@Model.UserRegistrationDto.UserName" class="text-danger"></span>
+                            <div class="nk-gap-2"></div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.UserRegistrationDto.Email" class="control-label"></label>
+                            <input asp-for="@Model.UserRegistrationDto.Email" class="form-control" />
+                            <span asp-validation-for="@Model.UserRegistrationDto.Email" class="text-danger"></span>
+                            <div class="nk-gap-2"></div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.UserRegistrationDto.Password" class="control-label"></label>
+                            <input asp-for="@Model.UserRegistrationDto.Password" class="form-control" />
+                            <span asp-validation-for="@Model.UserRegistrationDto.Password" class="text-danger"></span>
+                            <div class="nk-gap-2"></div>
+                        </div>
+
+                                                <div class="form-group">
+                            <label asp-for="@Model.UserRegistrationDto.ConfirmPassword" class="control-label"></label>
+                            <input asp-for="@Model.UserRegistrationDto.ConfirmPassword" class="form-control" />
+                            <span asp-validation-for="@Model.UserRegistrationDto.ConfirmPassword" class="text-danger"></span>
+                            <div class="nk-gap-2"></div>
+                        </div>
+                        <button type="submit" class="nk-btn nk-btn-color-white link-effect-4 float-right">Register</button>
+                    </form>
+                    <!-- END: Register Form -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="nk-gap-5"></div>
+</div>
+<!-- END: Sign Form -->

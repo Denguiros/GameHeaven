@@ -1,0 +1,200 @@
+﻿@model GameHeaven.ViewModels.GameViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Create Game</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-action="Create" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.Name" class="control-label"></label>
+                            <input asp-for="CreateGame.Name" class="form-control" />
+                            <span asp-validation-for="CreateGame.Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.Description" class="control-label"></label>
+                            <input asp-for="CreateGame.Description" class="form-control" />
+                            <span asp-validation-for="CreateGame.Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.Price" class="control-label"></label>
+                            <input asp-for="CreateGame.Price" class="form-control" />
+                            <span asp-validation-for="CreateGame.Price" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.ReleaseDate" class="control-label"></label>
+                            <input asp-for="CreateGame.ReleaseDate" class="form-control" />
+                            <span asp-validation-for="CreateGame.ReleaseDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.StatusId" class="control-label"></label>
+                            <select asp-for="CreateGame.StatusId" asp-items="Model.StatusesSelectItems" class="form-control">
+                                <option selected="selected">Select Status</option>
+                            </select>
+                            <span asp-validation-for="CreateGame.StatusId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.GenresIds" class="control-label"></label>
+                            <select asp-for="CreateGame.GenresIds" asp-items="Model.GenresSelectItems" class="form-control" multiple>
+                                <option selected="selected">Select Genres</option>
+                            </select>
+                            <span asp-validation-for="CreateGame.GenresIds" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.Cover" class="control-label"></label>
+                            <input asp-for="CreateGame.Cover" class="form-control" accept="image/*" />
+                            <span asp-validation-for="CreateGame.Cover" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.Images" class="control-label"></label>
+                            <input asp-for="CreateGame.Images" class="form-control" accept="image/*" multiple />
+                            <span asp-validation-for="CreateGame.Images" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.Videos" class="control-label"></label>
+                            <input asp-for="CreateGame.Videos" class="form-control" accept="video/*" multiple />
+                            <span asp-validation-for="CreateGame.Videos" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="CreateGame.PublisherId" class="control-label"></label>
+                            <select asp-for="CreateGame.PublisherId" asp-items="Model.PublisherSelectItems" class="form-control">
+                                <option selected="selected">Select Publisher</option>
+                            </select>
+                            <span asp-validation-for="CreateGame.PublisherId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.PlatformIds" class="control-label"></label>
+                            <select asp-for="CreateGame.PlatformIds" asp-items="Model.PlatformsSelectItems" class="form-control">
+                                <option selected="selected">Select Platforms</option>
+                            </select>
+                            <span asp-validation-for="CreateGame.PlatformIds" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.DeveloperIds" class="control-label"></label>
+                            <select asp-for="CreateGame.DeveloperIds" asp-items="Model.DeveloperSelectItems" class="form-control" multiple>
+                                <option selected="selected" value="0">Select Developers</option>
+                            </select>
+                            <span asp-validation-for="CreateGame.DeveloperIds" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.FranchiseId" class="control-label"></label>
+                            <select asp-for="CreateGame.FranchiseId" asp-items="Model.FranchisesSelectItems" class="form-control">
+                                <option selected="selected" value="0">Select Franchise</option>
+                            </select>
+                            <span asp-validation-for="CreateGame.FranchiseId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="CreateGame.MinimumSystemRequirements.CPUId" class="control-label"></label>
+                            <select asp-for="CreateGame.MinimumSystemRequirements.CPUId" asp-items="Model.MinCPUsSelectItems" class="form-control">
+                                <option selected="selected" value="0">Select CPU</option>
+                            </select>
+                            <span asp-validation-for="CreateGame.MinimumSystemRequirements.CPUId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.MinimumSystemRequirements.GPUId" class="control-label"></label>
+                            <select asp-for="CreateGame.MinimumSystemRequirements.GPUId" asp-items="Model.MinGPUsSelectItems" class="form-control">
+                                <option selected="selected" value="0">Select GPU</option>
+                            </select>
+                            <span asp-validation-for="CreateGame.MinimumSystemRequirements.GPUId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.MinimumSystemRequirements.DirectXId" class="control-label"></label>
+                            <select asp-for="CreateGame.MinimumSystemRequirements.DirectXId" asp-items="Model.MinDirectXsSelectItems" class="form-control">
+                                <option selected="selected" value="0">Select DirectX</option>
+                            </select>
+                            <span asp-validation-for="CreateGame.MinimumSystemRequirements.DirectXId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.MinimumSystemRequirements.OsId" class="control-label"></label>
+                            <select asp-for="CreateGame.MinimumSystemRequirements.OsId" asp-items="Model.MinOsesSelectItems" class="form-control">
+                                <option selected="selected" value="0">Select DirectX</option>
+                            </select>
+                            <span asp-validation-for="CreateGame.MinimumSystemRequirements.OsId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.MinimumSystemRequirements.Ram" class="control-label"></label>
+                            <input asp-for="CreateGame.MinimumSystemRequirements.Ram" class="form-control" />
+                            <span asp-validation-for="CreateGame.MinimumSystemRequirements.Ram" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.MinimumSystemRequirements.Storage" class="control-label"></label>
+                            <input asp-for="CreateGame.MinimumSystemRequirements.Storage" class="form-control" />
+                            <span asp-validation-for="CreateGame.MinimumSystemRequirements.Storage" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.MinimumSystemRequirements.AdditionalNotes" class="control-label"></label>
+                            <input asp-for="CreateGame.MinimumSystemRequirements.AdditionalNotes" class="form-control" />
+                            <span asp-validation-for="CreateGame.MinimumSystemRequirements.AdditionalNotes" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.RecommendedSystemRequirements.CPUId" class="control-label"></label>
+                            <select asp-for="CreateGame.RecommendedSystemRequirements.CPUId" asp-items="Model.MinCPUsSelectItems" class="form-control">
+                                <option selected="selected" value="0">Select CPU</option>
+                            </select>
+                            <span asp-validation-for="CreateGame.RecommendedSystemRequirements.CPUId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.RecommendedSystemRequirements.GPUId" class="control-label"></label>
+                            <select asp-for="CreateGame.RecommendedSystemRequirements.GPUId" asp-items="Model.MinGPUsSelectItems" class="form-control">
+                                <option selected="selected" value="0">Select GPU</option>
+                            </select>
+                            <span asp-validation-for="CreateGame.RecommendedSystemRequirements.GPUId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.RecommendedSystemRequirements.DirectXId" class="control-label"></label>
+                            <select asp-for="CreateGame.RecommendedSystemRequirements.DirectXId" asp-items="Model.MinDirectXsSelectItems" class="form-control">
+                                <option selected="selected" value="0">Select DirectX</option>
+                            </select>
+                            <span asp-validation-for="CreateGame.RecommendedSystemRequirements.DirectXId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.RecommendedSystemRequirements.OsId" class="control-label"></label>
+                            <select asp-for="CreateGame.RecommendedSystemRequirements.OsId" asp-items="Model.MinOsesSelectItems" class="form-control">
+                                <option selected="selected" value="0">Select DirectX</option>
+                            </select>
+                            <span asp-validation-for="CreateGame.RecommendedSystemRequirements.OsId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.RecommendedSystemRequirements.Ram" class="control-label"></label>
+                            <input asp-for="CreateGame.RecommendedSystemRequirements.Ram" class="form-control" />
+                            <span asp-validation-for="CreateGame.RecommendedSystemRequirements.Ram" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.RecommendedSystemRequirements.Storage" class="control-label"></label>
+                            <input asp-for="CreateGame.RecommendedSystemRequirements.Storage" class="form-control" />
+                            <span asp-validation-for="CreateGame.RecommendedSystemRequirements.Storage" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateGame.RecommendedSystemRequirements.AdditionalNotes" class="control-label"></label>
+                            <input asp-for="CreateGame.RecommendedSystemRequirements.AdditionalNotes" class="form-control" />
+                            <span asp-validation-for="CreateGame.RecommendedSystemRequirements.AdditionalNotes" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

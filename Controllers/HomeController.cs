@@ -1,26 +1,46 @@
-﻿using GameHeaven.Models;
+﻿using GameHeaven.Dtos.GameDtos;
+using GameHeaven.Dtos.Requests;
+using GameHeaven.Models;
+using GameHeaven.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace GameHeaven.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        public async Task<IActionResult> Index()
         {
-            _logger = logger;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
+            var viewModel = new HomeViewModel();
+            viewModel.Games = await Request<List<GameDto>>.GetAsync(APILinks.GAME_URL);
+            viewModel.Games.ForEach(x =>
+            {
+                StringBuilder str = new StringBuilder("");
+                var imgs = x.ImagesPath.Split(",").ToList();
+                imgs.ForEach(img => {
+                    str.Append(img.Trim(new Char[] { '[', '"', ']' }));
+                    str.Append(",");
+                    });
+                x.ImagesPath = str.ToString();
+            });
+            if (TempData["ViewModelBase"] is not null)
+            {
+                var viewModelBase = JsonConvert.DeserializeObject<ViewModelBase>(TempData["ViewModelBase"].ToString());
+                viewModel.Errors = viewModelBase.Errors;
+                viewModel.Messages = viewModelBase.Messages;
+                viewModel.Success = viewModelBase.Success;
+                viewModel.UserLoginRequestDto = viewModelBase.UserLoginRequestDto;
+                viewModel.UserForgotPasswordRequestDto = viewModelBase.UserForgotPasswordRequestDto;
+                viewModel.UserRegistrationDto = viewModelBase.UserRegistrationDto;
+            }
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

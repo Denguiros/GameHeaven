@@ -5,6 +5,11 @@
       "ProjectGuid": "389589e4-f24e-4bb3-9f7c-83f1d3311280",
       "DisplayName": "GameHeaven",
       "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
     }
   },
   "NextColorIndex": 1

@@ -1,0 +1,219 @@
+﻿@model GameHeaven.ViewModels.GameViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@{
+    string minStorage = "";
+    string minRam = "";
+    string minAddNotes = "";
+    string recStorage = "";
+    string recRam = "";
+    string recAddNotes = "";
+}
+
+@if(Model.UpdateGameDto.RecommendedSystemRequirements is not null)
+ {
+    minStorage = Model.UpdateGameDto.MinimumSystemRequirements.Storage.ToString();                               
+    recStorage = Model.UpdateGameDto.RecommendedSystemRequirements.Storage.ToString();                               
+    minRam = Model.UpdateGameDto.MinimumSystemRequirements.Ram.ToString();                              
+    recRam = Model.UpdateGameDto.RecommendedSystemRequirements.Ram.ToString();                               
+    minAddNotes = Model.UpdateGameDto.MinimumSystemRequirements.AdditionalNotes != null ? Model.UpdateGameDto.MinimumSystemRequirements.AdditionalNotes.ToString() : "";                               
+    recAddNotes = Model.UpdateGameDto.RecommendedSystemRequirements.AdditionalNotes!= null ? Model.UpdateGameDto.RecommendedSystemRequirements.AdditionalNotes : "";                               
+ }
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Edit Game</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-action="Edit" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.Name" class="control-label"></label>
+                            <input asp-for="UpdateGameDto.Name" class="form-control" />
+                            <span asp-validation-for="UpdateGameDto.Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.Description" class="control-label"></label>
+                            <input asp-for="UpdateGameDto.Description" class="form-control" />
+                            <span asp-validation-for="UpdateGameDto.Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.Price" class="control-label"></label>
+                            <input asp-for="UpdateGameDto.Price" class="form-control" />
+                            <span asp-validation-for="UpdateGameDto.Price" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.ReleaseDate" class="control-label"></label>
+                            <input asp-for="UpdateGameDto.ReleaseDate" class="form-control" />
+                            <span asp-validation-for="UpdateGameDto.ReleaseDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.StatusId" class="control-label"></label>
+                            <select asp-for="UpdateGameDto.StatusId" asp-items="Model.StatusesSelectItems" class="form-control">
+                            </select>
+                            <span asp-validation-for="UpdateGameDto.StatusId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.GenresIds" class="control-label"></label>
+                            <select asp-for="UpdateGameDto.GenresIds" asp-items="Model.GenresSelectItems" class="form-control" multiple>
+                                <option >Select Genres</option>
+                            </select>
+                            <span asp-validation-for="UpdateGameDto.GenresIds" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.Cover" class="control-label"></label>
+                            <input asp-for="UpdateGameDto.Cover" class="form-control" accept="image/*" />
+                            <span asp-validation-for="UpdateGameDto.Cover" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.Images" class="control-label"></label>
+                            <input asp-for="UpdateGameDto.Images" class="form-control" accept="image/*" multiple />
+                            <span asp-validation-for="UpdateGameDto.Images" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.Videos" class="control-label"></label>
+                            <input asp-for="UpdateGameDto.Videos" class="form-control" accept="video/*" multiple />
+                            <span asp-validation-for="UpdateGameDto.Videos" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.PublisherId" class="control-label"></label>
+                            <select asp-for="UpdateGameDto.PublisherId" asp-items="Model.PublisherSelectItems" class="form-control">
+                                <option >Select Publisher</option>
+                            </select>
+                            <span asp-validation-for="UpdateGameDto.PublisherId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.PlatformIds" class="control-label"></label>
+                            <select asp-for="UpdateGameDto.PlatformIds" asp-items="Model.PlatformsSelectItems" class="form-control">
+                                <option >Select Platforms</option>
+                            </select>
+                            <span asp-validation-for="UpdateGameDto.PlatformIds" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.DeveloperIds" class="control-label"></label>
+                            <select asp-for="UpdateGameDto.DeveloperIds" asp-items="Model.DeveloperSelectItems" class="form-control" multiple>
+                                <option  value="0">Select Developers</option>
+                            </select>
+                            <span asp-validation-for="UpdateGameDto.DeveloperIds" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.FranchiseId" class="control-label"></label>
+                            <select asp-for="UpdateGameDto.FranchiseId" asp-items="Model.PublisherSelectItems" class="form-control">
+                                <option  value="0">Select Franchise</option>
+                            </select>
+                            <span asp-validation-for="UpdateGameDto.FranchiseId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.UpdatedMinimumSystemRequirements.CPUId" class="control-label"></label>
+                            <select asp-for="UpdateGameDto.UpdatedMinimumSystemRequirements.CPUId" asp-items="Model.MinCPUsSelectItems" class="form-control">
+                                <option  value="0">Select CPU</option>
+                            </select>
+                            <span asp-validation-for="UpdateGameDto.UpdatedMinimumSystemRequirements.CPUId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.UpdatedMinimumSystemRequirements.GPUId" class="control-label"></label>
+                            <select asp-for="UpdateGameDto.UpdatedMinimumSystemRequirements.GPUId" asp-items="Model.MinGPUsSelectItems" class="form-control">
+                                <option  value="0">Select GPU</option>
+                            </select>
+                            <span asp-validation-for="UpdateGameDto.UpdatedMinimumSystemRequirements.GPUId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.UpdatedMinimumSystemRequirements.DirectXId" class="control-label"></label>
+                            <select asp-for="UpdateGameDto.UpdatedMinimumSystemRequirements.DirectXId" asp-items="Model.MinDirectXsSelectItems" class="form-control">
+                                <option  value="0">Select DirectX</option>
+                            </select>
+                            <span asp-validation-for="UpdateGameDto.UpdatedMinimumSystemRequirements.DirectXId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.UpdatedMinimumSystemRequirements.OsId" class="control-label"></label>
+                            <select asp-for="UpdateGameDto.UpdatedMinimumSystemRequirements.OsId" asp-items="Model.MinOsesSelectItems" class="form-control">
+                                <option  value="0">Select DirectX</option>
+                            </select>
+                            <span asp-validation-for="UpdateGameDto.UpdatedMinimumSystemRequirements.OsId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.UpdatedMinimumSystemRequirements.Ram" class="control-label"></label>
+                            <input asp-for="UpdateGameDto.UpdatedMinimumSystemRequirements.Ram" class="form-control" value =@minRam />
+                            <span asp-validation-for="UpdateGameDto.UpdatedMinimumSystemRequirements.Ram" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.UpdatedMinimumSystemRequirements.Storage" class="control-label"></label>
+                            <input asp-for="UpdateGameDto.UpdatedMinimumSystemRequirements.Storage" class="form-control" value =@minStorage />
+                            <span asp-validation-for="UpdateGameDto.UpdatedMinimumSystemRequirements.Storage" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.UpdatedMinimumSystemRequirements.AdditionalNotes" class="control-label"></label>
+                            <input asp-for="UpdateGameDto.UpdatedMinimumSystemRequirements.AdditionalNotes" class="form-control" value =@minAddNotes />
+                            <span asp-validation-for="UpdateGameDto.UpdatedMinimumSystemRequirements.AdditionalNotes" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.UpdatedRecommendedSystemRequirements.CPUId" class="control-label"></label>
+                            <select asp-for="UpdateGameDto.UpdatedRecommendedSystemRequirements.CPUId" asp-items="Model.RecCPUsSelectItems" class="form-control">
+                                <option  value="0">Select CPU</option>
+                            </select>
+                            <span asp-validation-for="UpdateGameDto.UpdatedRecommendedSystemRequirements.CPUId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.UpdatedRecommendedSystemRequirements.GPUId" class="control-label"></label>
+                            <select asp-for="UpdateGameDto.UpdatedRecommendedSystemRequirements.GPUId" asp-items="Model.RecGPUsSelectItems" class="form-control">
+                                <option  value="0">Select GPU</option>
+                            </select>
+                            <span asp-validation-for="UpdateGameDto.UpdatedRecommendedSystemRequirements.GPUId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.UpdatedRecommendedSystemRequirements.DirectXId" class="control-label"></label>
+                            <select asp-for="UpdateGameDto.UpdatedRecommendedSystemRequirements.DirectXId" asp-items="Model.RecDirectXsSelectItems" class="form-control">
+                                <option  value="0">Select DirectX</option>
+                            </select>
+                            <span asp-validation-for="UpdateGameDto.UpdatedRecommendedSystemRequirements.DirectXId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.UpdatedRecommendedSystemRequirements.OsId" class="control-label"></label>
+                            <select asp-for="UpdateGameDto.UpdatedRecommendedSystemRequirements.OsId" asp-items="Model.RecOsesSelectItems" class="form-control">
+                                <option  value="0">Select DirectX</option>
+                            </select>
+                            <span asp-validation-for="UpdateGameDto.UpdatedRecommendedSystemRequirements.OsId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.UpdatedRecommendedSystemRequirements.Ram" class="control-label"></label>
+                            <input asp-for="UpdateGameDto.UpdatedRecommendedSystemRequirements.Ram" class="form-control" value =@recRam />
+                            <span asp-validation-for="UpdateGameDto.UpdatedRecommendedSystemRequirements.Ram" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.UpdatedRecommendedSystemRequirements.Storage" class="control-label"></label>
+                            <input asp-for="UpdateGameDto.UpdatedRecommendedSystemRequirements.Storage" class="form-control" value=@recStorage/>
+                            <span asp-validation-for="UpdateGameDto.UpdatedRecommendedSystemRequirements.Storage" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UpdateGameDto.UpdatedRecommendedSystemRequirements.AdditionalNotes" class="control-label"></label>
+                            <input asp-for="UpdateGameDto.UpdatedRecommendedSystemRequirements.AdditionalNotes" class="form-control"  value=@recAddNotes/>
+                            <span asp-validation-for="UpdateGameDto.UpdatedRecommendedSystemRequirements.AdditionalNotes" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Update" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -20,6 +20,10 @@ namespace GameHeaven
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseKestrel(options =>
+                    {
+                        options.Limits.MaxRequestBodySize = null;
+                    });
                     webBuilder.UseStartup<Startup>();
                 });
     }

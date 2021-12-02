@@ -10,9 +10,10 @@ namespace GameHeaven
 {
     public static class Request<T>
     {
-        private static readonly HttpClient client = new();
+        
         public async static Task<T> GetAsync(string link, string token = null)
         {
+            HttpClient client = new();
             if (token is not null)
             {
                 client.DefaultRequestHeaders.Authorization =
@@ -25,6 +26,7 @@ namespace GameHeaven
         }
         public async static Task<T> PostAsync(string link, string jsonData, string mediaType = "application/json", string token = null, List<(string, string)> filePaths = null, List<(string, string)> variables = null)
         {
+            HttpClient client = new();
             if (token is not null)
             {
                 client.DefaultRequestHeaders.Authorization =
@@ -63,6 +65,7 @@ namespace GameHeaven
 
         public async static Task<T> PutAsync(string link, string jsonData, string mediaType = "application/json", string token = null, List<(string, string)> filePaths = null, List<(string, string)> variables = null)
         {
+            HttpClient client = new();
             if (token is not null)
             {
                 client.DefaultRequestHeaders.Authorization =
@@ -102,6 +105,7 @@ namespace GameHeaven
         }
         public async static Task<T> DeleteAsync(string link, string token = null)
         {
+            HttpClient client = new();
             if (token is not null)
             {
                 client.DefaultRequestHeaders.Authorization =

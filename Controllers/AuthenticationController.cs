@@ -8,10 +8,11 @@ using GameHeaven.Configuration;
 using GameHeaven.Dtos.Requests;
 using GameHeaven.ViewModels;
 using System.Web;
+using System.Collections.Generic;
+using System;
 
 namespace GameHeaven.Controllers
 {
-    [Route("[controller]")]
     public class AuthenticationController : Controller
     {
 
@@ -36,8 +37,6 @@ namespace GameHeaven.Controllers
         }
         [HttpPost]
         [Route("Login")]
-        [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> Login(UserLoginRequestDto userLoginRequestDto)
         {
             if (ModelState.IsValid)
@@ -48,9 +47,11 @@ namespace GameHeaven.Controllers
                 {
                     CookieOptions cookie = new();
                     cookie.HttpOnly = true;
-                    cookie.Expires = System.DateTimeOffset.Now.AddHours(6);
+                    cookie.Expires = DateTimeOffset.Now.AddHours(6);
                     Response.Cookies.Append(Constants.JWT.ToString(), authResult.Token, cookie);
                     TempData["ViewModelBase"] = JsonConvert.SerializeObject(authResult);
+                    HttpContext.Session.SetString("UserName", authResult.User.UserProperties.UserName);
+                    HttpContext.Session.SetString("UserId", authResult.User.UserProperties.Id);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -60,6 +61,28 @@ namespace GameHeaven.Controllers
                 }
             }
             return View(userLoginRequestDto);
+        }
+        [Route("Login")]
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [Route("Logout")]
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete(Constants.JWT.ToString());
+            HttpContext.Session.Remove("UserName");
+            HttpContext.Session.Remove("UserId");
+            TempData["ViewModelBase"] = JsonConvert.SerializeObject(new ViewModelBase
+            {
+                Messages = new List<string>
+                {
+                    "Logged out successfully"
+                }
+            });
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]

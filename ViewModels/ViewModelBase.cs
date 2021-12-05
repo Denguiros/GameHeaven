@@ -11,5 +11,7 @@ namespace GameHeaven.ViewModels
         public UserRegistrationDto UserRegistrationDto { get; set; }
         public UserLoginRequestDto UserLoginRequestDto { get; set; }
         public UserForgotPasswordRequestDto UserForgotPasswordRequestDto { get; set; }
+        public string PaymentProcessor { get; set; }
+        public object Dai { get; set; }
     }
 }

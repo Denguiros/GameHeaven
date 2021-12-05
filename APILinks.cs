@@ -15,6 +15,8 @@
         public const string USERS_URL = API_URL + "admin/UserSetup";
         public const string STATUS_URL = API_URL + "admin/Status";
         public const string FRANCHISE_URL = API_URL + "admin/Franchise";
+        public const string CART_URL = API_URL + "api/Cart";
+        public const string PAYMENT_URL = API_URL + "api/Payment";
         public const string LOGIN_URL = API_URL + "AuthManagement/Login";
         public const string REGISTER_URL = API_URL + "AuthManagement/Register";
         public const string RESET_PASSWORD = API_URL + "AuthManagement/Reset-Password";

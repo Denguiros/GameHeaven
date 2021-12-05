@@ -1,4 +1,6 @@
 ﻿using GameHeaven.Dtos.CPUDtos;
+using GameHeavenAPI;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -8,6 +10,7 @@ using System.Threading.Tasks;
 namespace GameHeaven.Controllers
 {
     [Area("Admin")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = nameof(Roles.Admin))]
     public class CpuController : Controller
     {
         public async Task<ActionResult> Index()

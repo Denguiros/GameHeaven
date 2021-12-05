@@ -28,8 +28,8 @@ namespace GameHeaven.Areas.Admin.Controllers
             users.ForEach(u => usr.Add(new()
             {
                 UserProperties = u,
-                Developer = developers.FirstOrDefault(d => d.User.Id == u.Id),
-                Publisher = publishers.FirstOrDefault(p => p.User.Id == u.Id),
+                Developer = developers != null ? developers.FirstOrDefault(d => d.User.Id == u.Id) : null,
+                Publisher = publishers != null ? publishers.FirstOrDefault(p => p.User.Id == u.Id) : null,
                 //Roles = await Request<List<string>>.GetAsync(APILinks.USERS_URL + "/GetUserRoles/" + u.Email, token)
             }));
             return View(usr);

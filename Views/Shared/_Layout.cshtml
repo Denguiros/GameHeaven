@@ -52,6 +52,153 @@
     <!-- END: Styles -->
     <!-- jQuery -->
     <script src="~/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/axios.min.js"></script>
+    <script src="~/js/requests.js"></script>
+    <script src="~/js/toastr.min.js"></script>
+
+    <script type="text/javascript">
+        function readTextFile(file, callback) {
+        var rawFile = new XMLHttpRequest();
+        rawFile.overrideMimeType("application/json");
+        rawFile.open("GET", file, true);
+        rawFile.onreadystatechange = function() {
+            if (rawFile.readyState === 4 && rawFile.status == "200") {
+                callback(rawFile.responseText);
+            }
+        }
+        rawFile.send(null);
+        }
+
+    </script>
+    <script type="module">
+                var Dai = '';
+                var PaymentProcessor = '';
+                readTextFile("/js/src/contracts/Dai.json", function(text){
+                Dai = JSON.parse(text);
+                });
+                readTextFile("/js/src/contracts/PaymentProcessor.json", function(text){
+                    PaymentProcessor = JSON.parse(text);
+                });
+                    import { ethers, Contract } from "/js/ethers-5.2.esm.min.js";
+                    window.ethers = ethers;
+                          const getBlockchain = () =>
+                new Promise((resolve, reject) => {
+                  window.addEventListener("load", async () => {
+                    if (window.ethereum) {
+                      await window.ethereum.enable();
+                      const provider = new ethers.providers.Web3Provider(window.ethereum);
+                      const signer = provider.getSigner();
+                      const signerAddress = await signer.getAddress();
+
+                      const paymentProcessor = new Contract(
+                        PaymentProcessor.networks[window.ethereum.networkVersion].address,
+                        PaymentProcessor.abi,
+                        signer
+                      );
+                      const dai = new Contract(
+                        Dai.networks[window.ethereum.networkVersion].address, //for mainnet and public testnet replace by address of already deployed dai token
+                        Dai.abi,
+                        signer
+                      );
+
+                      resolve({ provider, paymentProcessor, dai });
+                    }
+                    resolve({
+                      provider: undefined,
+                      paymentProcessor: undefined,
+                      dai: undefined,
+                    });
+                  });
+                });
+                var bc = await getBlockchain();
+                var paymentProcessor = bc.paymentProcessor;
+                var dai = bc.dai;
+
+
+                var paymentResponse;
+                const buy = async function (items) {
+                      $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("AddPayment", "Payment")',
+                        data: null,
+                        success: async function (response) {
+                            paymentResponse = response;
+                            console.log("Payment Response :"+ paymentResponse);
+                            const API_URL = "http://localhost:4000";
+                            var ids = "";
+                            for(var i in paymentResponse.gameIds)
+                            {
+                                if(i < paymentResponse.gameIds.length-1)
+                                ids +=paymentResponse.gameIds[i]+',';
+                                else
+                                ids +=paymentResponse.gameIds[i];
+                            }
+                            const response1 = await axios.get(`${API_URL}/api/getPaymentId/${paymentResponse.paymentId}?ids=[${ids}]`);
+                            const tx1 = await dai.approve(paymentProcessor.address, items.price);
+                            await tx1.wait();
+
+                            const tx2 = await paymentProcessor.pay(
+                            items.price,
+                            paymentResponse.paymentId
+                            );
+                            const receipt = await tx2.wait();
+
+                            await new Promise((resolve) => setTimeout(resolve, 3000));
+                            const response2 = await axios.get(
+                            `${API_URL}/api/getApproval/${paymentResponse.paymentId}`
+                            );
+                            var approval = response2.data.approval;
+                            var pid = paymentResponse.paymentId;
+                            console.log(pid);
+                            if(new String(approval).valueOf() == new String("true").valueOf())
+                            {
+                                console.log("Approval : "+response2.data.approval);
+                                console.log(pid);
+                                $.ajax({
+                                    type: "POST",
+                                    url: '@Url.Action("ApprovePayment", "Payment")',
+                                    data: {paymentId:pid},
+                                    success: async function (response) {
+                                        for(var msg in response.messages)
+                                        {
+                                            toastr.options.closeButton = true;
+                                            toastr.options.closeMethod = 'fadeOut';
+                                            toastr.options.closeDuration = 300;
+                                            toastr.options.closeEasing = 'swing';
+                                            toastr.info(response.messages[msg]);
+
+                                        }
+                                        for(var msg in response.errors)
+                                        {
+                                            toastr.options.closeButton = true;
+                                            toastr.options.closeMethod = 'fadeOut';
+                                            toastr.options.closeDuration = 300;
+                                            toastr.options.closeEasing = 'swing';
+                                            toastr.error(response.errors[msg]);
+                                        }
+                                        getCart('@Url.Action("GetCart", "Cart")');
+                                        await new Promise(resolve => setTimeout(resolve, 1000));
+                                        window.location.replace("https://localhost:5003");
+                                    },
+                                     error: function (message) {
+                                      console.log(message);
+                                    }
+                                });
+                            }
+                        },
+                        error: function (message) {
+                            console.log(message);
+                        }
+                      });
+                      
+                  };
+                  window.buy = buy;
+
+                  $(document).ready(function () {
+            getCart('@Url.Action("GetCart", "Cart")');
+        });
+    </script>
+
 </head>
 <body>
     <!-- START: Page Preloader -->
@@ -744,11 +891,11 @@
 
 
                         <li class="single-icon">
-                            <a href="#" class="nk-cart-toggle no-link-effect">
+                            <a href="#" class="nk-cart-toggle no-link-effect" onclick="getCart('@Url.Action("GetCart", "Cart")')">
                                 <span class="nk-icon-toggle">
                                     <span class="nk-icon-toggle-front">
                                         <span class="ion-android-cart"></span>
-                                        <span class="nk-badge">8</span>
+                                        <span class="nk-badge" id="totalOfCartItems"></span>
                                     </span>
                                     <span class="nk-icon-toggle-back">
                                         <span class="nk-icon-close"></span>
@@ -1091,7 +1238,8 @@
     <!-- GODLIKE -->
     <script src="~/js/godlike.min.js"></script>
     <script src="~/js/godlike-init.js"></script>
-    <script src="~/js/toastr.min.js"></script>
+
+
     <!-- END: Scripts -->
 
 

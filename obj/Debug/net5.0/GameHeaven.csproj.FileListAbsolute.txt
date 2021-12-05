@@ -484,3 +484,10 @@ C:\Users\Denguiros\source\repos\GameHeaven\obj\Debug\net5.0\Razor\Areas\Admin\Vi
 C:\Users\Denguiros\source\repos\GameHeaven\obj\Debug\net5.0\Razor\Areas\Admin\Views\Role\Index.cshtml.g.cs
 C:\Users\Denguiros\source\repos\GameHeaven\obj\Debug\net5.0\Razor\Areas\Admin\Views\Role\Create.cshtml.g.cs
 C:\Users\Denguiros\source\repos\GameHeaven\obj\Debug\net5.0\Razor\Areas\Admin\Views\User\Edit.cshtml.g.cs
+C:\Users\Denguiros\source\repos\GameHeaven\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Denguiros\source\repos\GameHeaven\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Denguiros\source\repos\GameHeaven\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Denguiros\source\repos\GameHeaven\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Denguiros\source\repos\GameHeaven\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Denguiros\source\repos\GameHeaven\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Denguiros\source\repos\GameHeaven\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll

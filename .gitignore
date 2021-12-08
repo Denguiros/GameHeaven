@@ -1,0 +1,11 @@
+
+*.cache
+*.dll
+*.user
+*.cache
+.vs/GameHeaven/v17/.suo
+*.bin
+*.pdb
+*.json
+*.dll
+obj/

@@ -1,0 +1,649 @@
+﻿@model GameHeaven.Dtos.GameDtos.GameDto;
+@{
+    ViewData["Title"] = @Model.Name;
+}
+
+
+<nav class="nk-navbar nk-navbar-side nk-navbar-left nk-navbar-lg nk-navbar-align-center nk-navbar-overlay-content" id="nk-navbar-left">
+    <div class="nano">
+        <div class="nano-content">
+            <div class="nk-nav-table">
+                <div class="nk-nav-row">
+
+                    <a href="index.html" class="nk-nav-logo">
+                        <p>GameHeaven</p>
+                    </a>
+
+
+                </div>
+                <!--
+                    START: Navigation
+
+                    Additional Classes:
+                        .nk-nav-row-top
+                        .nk-nav-row-center
+                        .nk-nav-row-bottom
+                -->
+                <div class="nk-nav-row nk-nav-row-full nk-nav-row-center">
+                    <ul class="nk-nav" data-nav-mobile="#nk-nav-mobile">
+                        <li class="active nk-drop-item">
+                            <a href="index.html">
+                                Home
+                            </a>
+                            <ul class="dropdown">
+                                <li class=" ">
+                                    <a href="index.html">
+                                        Landing
+                                    </a>
+                                </li>
+                                <li class=" ">
+                                    <a href="index-main.html">
+                                        Main
+                                    </a>
+                                </li>
+                                <li class="active ">
+                                    <a href="index-game-promo.html">
+                                        Game Promo
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class=" ">
+                            <a href="#generalDesc">
+                                General description
+                            </a>
+                        </li>
+                        <li class=" ">
+                            <a href="#developers">
+                                developers
+                            </a>
+                        </li>
+                        <li class=" ">
+                            <a href="#publishers">
+                                publishers
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--
+                    END: Navigation
+                -->
+                <div class="nk-nav-row">
+                    <div class="nk-nav-footer">
+                        &copy; 2018 nK Group Inc. Developed in association with LoremInc. IpsumCompany, SitAmmetGroup, CumSit and related logos are registered trademarks. All Rights Reserved.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- END: Navbar -->
+<!-- START: Navigation Toggler -->
+<ul class="nk-nav-toggler-right">
+</ul>
+
+<ul class="nk-nav-toggler-left">
+    <li class="d-lg-none">
+        <span class="nk-btn nk-btn-lg nk-btn-icon" data-nav-toggle="#nk-nav-mobile">
+            <span class="icon">
+                <span class="nk-icon-burger">
+                    <span class="nk-t-1"></span>
+                    <span class="nk-t-2"></span>
+                    <span class="nk-t-3"></span>
+                </span>
+            </span>
+        </span>
+    </li>
+</ul>
+
+<!-- END: Navigation Toggler -->
+<!--
+    START: Navbar Mobile
+
+    Additional Classes:
+        .nk-navbar-left-side
+        .nk-navbar-right-side
+        .nk-navbar-lg
+        .nk-navbar-overlay-content
+        .nk-navbar-light
+        .nk-navbar-no-link-effect
+-->
+<div id="nk-nav-mobile" class="nk-navbar nk-navbar-side nk-navbar-left-side nk-navbar-overlay-content d-lg-none">
+    <div class="nano">
+        <div class="nano-content">
+            <a href="index.html" class="nk-nav-logo">
+                <img src="assets/images/logo.svg" alt="" width="90">
+            </a>
+            <div class="nk-navbar-mobile-content">
+                <ul class="nk-nav">
+                    <!-- Here will be inserted menu from [data-mobile-menu="#nk-nav-mobile"] -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Navbar Mobile -->
+
+
+
+<div class="nk-main">
+
+
+    <!-- START: Header Title -->
+    <!--
+        Additional Classes:
+            .nk-header-title-sm
+            .nk-header-title-md
+            .nk-header-title-lg
+            .nk-header-title-xl
+            .nk-header-title-full
+            .nk-header-title-parallax
+            .nk-header-title-parallax-opacity
+            .nk-header-title-boxed
+    -->
+    <div class="nk-header-title nk-header-title-full nk-header-title-parallax nk-header-title-parallax-opacity">
+        <div class="bg-image op-4">
+            <img src="assets/images/video-6-thumb.jpg" alt="" class="jarallax-img">
+        </div>
+        <div class="nk-header-table">
+            <div class="nk-header-table-cell">
+                <div class="container">
+
+
+
+
+                    <div class="nk-header-text">
+
+                        <div class="nk-gap-2"></div>
+
+                        <h1 class="nk-title display-4">@Model.Name</h1>
+
+                        <div class="nk-gap-2"></div>
+
+                        @foreach (var d in @Model.Platforms)
+                        {
+                            if (d.Name.Equals("PS4"))
+                            {
+                                <a href="#" class="nk-btn nk-btn-lg">
+
+                                    <span class="icon ion-playstation"></span>
+                                    <span>PS4</span>
+                                </a>
+                                
+                            }
+
+                             if (d.Name.Equals("XBOX"))
+                            {
+                                <a href="#" class="nk-btn nk-btn-lg">
+
+                                    <span class="icon ion-xbox"></span>
+                                    <span>Xbox</span>
+                                </a>
+                            }
+
+                             if (d.Name.Equals("PC"))
+                            {
+                                <a href="#" class="nk-btn nk-btn-lg">
+
+                                    <span class="icon ion-steam"></span>
+                                    <span>PC</span>
+                                </a>
+                            }
+                        }
+
+                      
+
+                        <div class="nk-gap-2"></div>
+
+                        <div class="row">
+                            <div class="col-md-8 offset-md-2">
+                                <video class="col-lg" controls autoplay>
+                                    @foreach (var vid in Model.VideosPath.Split(","))
+                                    {
+                                        if (vid != string.Empty)
+                                        {
+
+                                            <source src="@vid" type="video/mp4">
+
+
+                                        }
+                                    }
+                                </video>
+
+
+                            </div>
+                        </div>
+
+                        <div class="nk-gap-4"></div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- END: Header Title -->
+
+   <div class="nk-box">
+        <div class="nk-gap-4"></div>
+        <div class="container">
+
+            <!-- START: Carousel -->
+            <div class="nk-carousel-2" data-arrows="true">
+                <div class="nk-carousel-inner">
+                    @foreach (var image in Model.ImagesPath.Split(","))
+                    {
+                        @if (image != string.Empty)
+                        {
+                             <div><div>
+                        <img src="@image" alt="" class="nk-img-fit">
+                    </div></div>
+                        }
+                       
+                    }
+                   
+                   
+                </div>
+            </div>
+            <!-- END: Carousel -->
+
+        </div>
+        <div class="nk-gap-4"></div>
+    </div>
+
+
+    <!-- START: CTA -->
+    <div class="nk-box text-center text-white bg-dark-1">
+        <div class="nk-gap-4"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 text-md-left">
+                    <h2 class="nk-title">Purchase now <strong>$@Model.Price</strong></h2>
+                </div>
+                <div class="col-md-4 text-md-right">
+                    <div class="nk-gap-2 d-md-none"></div>
+                    <a href="#!" class="nk-btn nk-btn-lg">
+                        <span>Buy Now</span>
+                        <span class="icon"><i class="ion-bag"></i></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="nk-gap-4"></div>
+    </div>
+    <!-- END: CTA -->
+    <!-- START: Features -->
+    <div class="container">
+
+        <div class="nk-ibox" id="generalDesc">
+            <div class="nk-ibox-icon nk-ibox-icon-circle">
+                <span class="ion-ios-game-controller-b"></span>
+            </div>
+            <div class="nk-ibox-cont">
+                <h2 class="nk-ibox-title">General Description</h2>
+                @Model.Description
+            </div>
+        </div>
+
+        <div class="nk-ibox" id="developers">
+            <div class="nk-ibox-icon nk-ibox-icon-circle">
+                <span class="ion-ios-game-controller-b"></span>
+            </div>
+            <div class="nk-ibox-cont">
+                <h2 class="nk-ibox-title">Developer</h2>
+                @foreach (var dev in Model.Developers)
+                {
+                    <p><b>@dev.Name</b> : @dev.Description</p>
+
+                    <img class="img-thumbnail" style="width:200px" src="@dev.CoverPath" alt="">
+
+
+                }
+            </div>
+        </div>
+
+        <div class="nk-ibox" id="publishers">
+            <div class="nk-ibox-icon nk-ibox-icon-circle">
+                <span class="ion-ios-game-controller-b"></span>
+            </div>
+            <div class="nk-ibox-cont">
+                <h2 class="nk-ibox-title">Publisher</h2>
+                <p> <b>@Model.Publisher.Name</b> :  @Model.Publisher.Description </p>
+                <img class="img-thumbnail" style="width:200px" src="@Model.Publisher.CoverPath" alt="">
+
+            </div>
+        </div>
+
+
+
+        <div class="row align-items-center">
+        </div>
+        <div class="nk-gap-4"></div>
+    </div>
+    <!-- END: Features -->
+    <!-- START: Tabs -->
+    <div class="nk-box bg-dark-1" id="info">
+        <div class="nk-gap-4"></div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 offset-lg-2">
+
+                    <div class="nk-tabs">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#tabs-1-1" role="tab" data-toggle="tab">Status</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#tabs-1-2" role="tab" data-toggle="tab">Minimum specs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#tabs-1-3" role="tab" data-toggle="tab">Recommeded specs</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade show active" id="tabs-1-1">
+                                <div class="nk-gap-3"></div>
+
+                                <p>@Model.Status.Name : @Model.ReleaseDate</p>
+                                <p>
+                                    For the : @foreach (var d in @Model.Platforms)
+                                    {
+                                        @d.Name
+                                    }
+
+
+                                    <div class="nk-gap-1"></div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tabs-1-2">
+                                <div class="nk-gap-3"></div>
+                                <div class="row vertical-gap">
+                                    @if (@Model.MinimumSystemRequirements == null)
+                                    {
+                                        <p>None set</p>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Item</th>
+                                                        <th>Spec</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="order">
+                                                        <td><a>CPU</a></td>
+                                                        <td>
+                                                            <a>
+                                                                @if (@Model.MinimumSystemRequirements.CPU == null)
+                                                                {
+                                                                    <p>None</p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p>@Model.MinimumSystemRequirements.CPU</p>
+                                                                }
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr class="order">
+                                                        <td><a>GPU</a></td>
+                                                        <td>
+                                                            <a>
+                                                                @if (@Model.MinimumSystemRequirements.GPU == null)
+                                                                {
+                                                                    <p>None</p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p>@Model.MinimumSystemRequirements.GPU</p>
+                                                                }
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr class="order">
+                                                        <td><a>Storage</a></td>
+                                                        <td>
+                                                            <a>
+                                                                @if (@Model.MinimumSystemRequirements.Storage == null)
+                                                                {
+                                                                    <p>None</p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p>@Model.MinimumSystemRequirements.Storage GB</p>
+                                                                }
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr class="order">
+                                                        <td><a>DirectX</a></td>
+                                                        <td>
+                                                            <a>
+                                                                @if (@Model.MinimumSystemRequirements.DirectX == null)
+                                                                {
+                                                                    <p>None</p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p>@Model.MinimumSystemRequirements.DirectX</p>
+                                                                }
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr class="order">
+                                                        <td><a>OS</a></td>
+                                                        <td>
+                                                            <a>
+                                                                @if (@Model.MinimumSystemRequirements.Os == null)
+                                                                {
+                                                                    <p>None</p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p>@Model.MinimumSystemRequirements.Os</p>
+                                                                }
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr class="order">
+                                                        <td><a>Ram</a></td>
+                                                        <td>
+                                                            <a>
+                                                                @if (@Model.MinimumSystemRequirements.Ram == null)
+                                                                {
+                                                                    <p>None</p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p>@Model.MinimumSystemRequirements.Ram GB</p>
+                                                                }
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr class="order">
+                                                        <td><a>Additional Notes</a></td>
+                                                        <td>
+                                                            <a>
+                                                                @if (@Model.MinimumSystemRequirements.AdditionalNotes == null)
+                                                                {
+                                                                    <p>None</p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p>@Model.MinimumSystemRequirements.AdditionalNotes</p>
+                                                                }
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    }
+
+
+                                </div>
+                                <div class="nk-gap-1"></div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tabs-1-3">
+                                <div class="nk-gap-3"></div>
+
+                                @if (@Model.RecommendedSystemRequirements == null)
+                                {
+                                    <p>None set</p>
+                                }
+                                else
+                                {
+
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Item</th>
+                                                    <th>Spec</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="order">
+                                                    <td><a>CPU</a></td>
+                                                    <td>
+                                                        <a>
+                                                            @if (@Model.RecommendedSystemRequirements.CPU == null)
+                                                            {
+                                                                <p>None</p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p>@Model.RecommendedSystemRequirements.CPU</p>
+                                                            }
+                                                        </a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr class="order">
+                                                    <td><a>GPU</a></td>
+                                                    <td>
+                                                        <a>
+                                                            @if (@Model.RecommendedSystemRequirements.GPU == null)
+                                                            {
+                                                                <p>None</p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p>@Model.RecommendedSystemRequirements.GPU</p>
+                                                            }
+                                                        </a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr class="order">
+                                                    <td><a>Storage</a></td>
+                                                    <td>
+                                                        <a>
+                                                            @if (@Model.RecommendedSystemRequirements.Storage == null)
+                                                            {
+                                                                <p>None</p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p>@Model.RecommendedSystemRequirements.Storage GB</p>
+                                                            }
+                                                        </a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr class="order">
+                                                    <td><a>DirectX</a></td>
+                                                    <td>
+                                                        <a>
+                                                            @if (@Model.RecommendedSystemRequirements.DirectX == null)
+                                                            {
+                                                                <p>None</p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p>@Model.RecommendedSystemRequirements.DirectX</p>
+                                                            }
+                                                        </a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr class="order">
+                                                    <td><a>OS</a></td>
+                                                    <td>
+                                                        <a>
+                                                            @if (@Model.RecommendedSystemRequirements.Os == null)
+                                                            {
+                                                                <p>None</p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p>@Model.RecommendedSystemRequirements.Os</p>
+                                                            }
+                                                        </a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr class="order">
+                                                    <td><a>Ram</a></td>
+                                                    <td>
+                                                        <a>
+                                                            @if (@Model.RecommendedSystemRequirements.Ram == null)
+                                                            {
+                                                                <p>None</p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p>@Model.RecommendedSystemRequirements.Ram GB</p>
+                                                            }
+                                                        </a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr class="order">
+                                                    <td><a>Additional Notes</a></td>
+                                                    <td>
+                                                        <a>
+                                                            @if (@Model.RecommendedSystemRequirements.AdditionalNotes == null)
+                                                            {
+                                                                <p>None</p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p>@Model.RecommendedSystemRequirements.AdditionalNotes</p>
+                                                            }
+                                                        </a>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                }
+
+
+                                <div class="nk-gap-1"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="nk-gap-3"></div>
+    </div>
+    <!-- END: Tabs -->

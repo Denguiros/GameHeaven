@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using GameHeaven.Dtos.UserDtos;
 using GameHeaven.Dtos.Requests;
+using GameHeaven.Models;
+
 namespace GameHeaven.ViewModels
 {
     public class ViewModelBase
@@ -10,6 +12,7 @@ namespace GameHeaven.ViewModels
         public IList<string> Messages { get; set; }
         public UserRegistrationDto UserRegistrationDto { get; set; }
         public UserLoginRequestDto UserLoginRequestDto { get; set; }
+        public Cart Cart { get; set; }
         public UserForgotPasswordRequestDto UserForgotPasswordRequestDto { get; set; }
         public string PaymentProcessor { get; set; }
         public object Dai { get; set; }

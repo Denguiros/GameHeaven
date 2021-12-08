@@ -10,6 +10,8 @@ using GameHeaven.ViewModels;
 using System.Web;
 using System.Collections.Generic;
 using System;
+using GameHeaven.Entities;
+using GameHeaven.Dtos.PublisherDtos;
 
 namespace GameHeaven.Controllers
 {
@@ -22,7 +24,7 @@ namespace GameHeaven.Controllers
         {
             if (ModelState.IsValid)
             {
-                userRegistrationDto.Config = "https://localhost:5003/Authentication/ConfirmEmail";
+                userRegistrationDto.Config = "https://localhost:5003/ConfirmEmail";
                 string jsonObject = JsonConvert.SerializeObject(userRegistrationDto);
                 var registerResult = await Request<ViewModelBase>.PostAsync(APILinks.REGISTER_URL, jsonObject);
                 if (registerResult.Success)
@@ -50,8 +52,7 @@ namespace GameHeaven.Controllers
                     cookie.Expires = DateTimeOffset.Now.AddHours(6);
                     Response.Cookies.Append(Constants.JWT.ToString(), authResult.Token, cookie);
                     TempData["ViewModelBase"] = JsonConvert.SerializeObject(authResult);
-                    HttpContext.Session.SetString("UserName", authResult.User.UserProperties.UserName);
-                    HttpContext.Session.SetString("UserId", authResult.User.UserProperties.Id);
+                    HttpContext.Session.SetObject("User", authResult.User);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -73,8 +74,7 @@ namespace GameHeaven.Controllers
         public IActionResult Logout()
         {
             Response.Cookies.Delete(Constants.JWT.ToString());
-            HttpContext.Session.Remove("UserName");
-            HttpContext.Session.Remove("UserId");
+            HttpContext.Session.Remove("User");
             TempData["ViewModelBase"] = JsonConvert.SerializeObject(new ViewModelBase
             {
                 Messages = new List<string>
@@ -101,7 +101,7 @@ namespace GameHeaven.Controllers
         {
             if (ModelState.IsValid)
             {
-                userForgotPasswordRequestDto.Config = "https://localhost:5003/Authentication/ResetPassword";
+                userForgotPasswordRequestDto.Config = "https://localhost:5003/ResetPassword";
                 string jsonObject = JsonConvert.SerializeObject(userForgotPasswordRequestDto);
                 var result = await Request<UserDto>.PostAsync(APILinks.FORGOT_PASSWORD, jsonObject);
                 if(result.Success)

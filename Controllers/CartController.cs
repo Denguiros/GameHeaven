@@ -1,7 +1,11 @@
-﻿using GameHeaven.Models;
+﻿using GameHeaven.Entities;
+using GameHeaven.Models;
+using GameHeaven.ViewModels;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GameHeaven.Controllers
@@ -13,7 +17,7 @@ namespace GameHeaven.Controllers
         public async Task<ActionResult> GetCart()
         {
             var token = Request.Cookies[Constants.JWT.ToString()];
-            var cart = await Request<Cart>.GetAsync(APILinks.CART_URL + "/" + HttpContext.Session.GetString("UserId"), token: token);
+            var cart = await Request<Cart>.GetAsync(APILinks.CART_URL + "/" + HttpContext.Session.GetObject<ApplicationUser>("User").UserProperties.Id, token: token);
             return Ok(cart);
         }
 
@@ -21,9 +25,19 @@ namespace GameHeaven.Controllers
         [HttpPost]
         public async Task<ActionResult> Add(int gameId)
         {
+            if (HttpContext.Session.GetObject<ApplicationUser>("User") is null)
+            {
+                return Ok(new ViewModelBase
+                {
+                    Errors = new List<string>()
+                    {
+                        "Please login first"
+                    }
+                });
+            }
             UpdateCart cart = new()
             {
-                UserId = HttpContext.Session.GetString("UserId"),
+                UserId = HttpContext.Session.GetObject<ApplicationUser>("User").UserProperties.Id,
                 GameId = gameId
             };
             var jsonObject = JsonConvert.SerializeObject(cart);
@@ -36,12 +50,12 @@ namespace GameHeaven.Controllers
         {
             UpdateCart cart = new()
             {
-                UserId = HttpContext.Session.GetString("UserId"),
+                UserId = HttpContext.Session.GetObject<ApplicationUser>("User").UserProperties.Id,
                 GameId = gameId
             };
             var jsonObject = JsonConvert.SerializeObject(cart);
             var token = Request.Cookies[Constants.JWT.ToString()];
-            var updatedCart = await Request<Cart>.PostAsync(APILinks.CART_URL+"/RemoveFromCart", jsonObject, token: token);
+            var updatedCart = await Request<Cart>.PostAsync(APILinks.CART_URL + "/RemoveFromCart", jsonObject, token: token);
             return Ok(updatedCart);
         }
 

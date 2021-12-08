@@ -1,12 +1,15 @@
-﻿using GameHeaven.Entities;
+﻿using GameHeaven.Dtos.GameDtos;
+using GameHeaven.Dtos.PublisherDtos;
+using GameHeaven.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
 namespace GameHeaven.ViewModels
 {
-    public class UserViewModel
+    public class UserViewModel : ViewModelBase
     {
-        public User User { get; set; }
+        public ApplicationUser User { get; set; }
         public IEnumerable<SelectListItem> Roles { get; set; }
+        public List<GameDto> OwnedGames { get; set; }
     }
 }

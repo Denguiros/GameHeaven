@@ -24,7 +24,7 @@ namespace GameHeaven.Areas.Admin.Controllers
             var users = await Request<List<IdentityUser>>.GetAsync(APILinks.USERS_URL + "/GetAllUsers", token);
             var publishers = await Request<List<PublisherDto>>.GetAsync(APILinks.PUBLISHER_URL, token);
             var developers = await Request<List<DeveloperDto>>.GetAsync(APILinks.DEVELOPER_URL, token);
-            List<User> usr = new();
+            List<ApplicationUser> usr = new();
             users.ForEach(u => usr.Add(new()
             {
                 UserProperties = u,
@@ -41,7 +41,7 @@ namespace GameHeaven.Areas.Admin.Controllers
             if (user != null)
             {
                 var userRoles = await Request<List<string>>.GetAsync(APILinks.USERS_URL + "/GetUserRoles/" + user.Email, token);
-                User usr = new()
+                ApplicationUser usr = new()
                 {
                     UserProperties = user,
                     Roles = userRoles.Select(usrRole => usrRole).ToList(),
@@ -86,7 +86,7 @@ namespace GameHeaven.Areas.Admin.Controllers
 
                 var publisher = await Request<PublisherDto>.GetAsync(APILinks.PUBLISHER_URL + "/GetPublisherByUserId/" + id, token);
                 var developer = await Request<DeveloperDto>.GetAsync(APILinks.DEVELOPER_URL + "/GetDeveloperByUserId/" + id, token);
-                User usr = new()
+                ApplicationUser usr = new()
                 {
                     UserProperties = user,
                     Developer = developer,
@@ -108,7 +108,7 @@ namespace GameHeaven.Areas.Admin.Controllers
 
                 var publisher = await Request<PublisherDto>.GetAsync(APILinks.PUBLISHER_URL + "/GetPublisherByUserId/" + id, token);
                 var developer = await Request<DeveloperDto>.GetAsync(APILinks.DEVELOPER_URL + "/GetDeveloperByUserId/" + id, token);
-                User usr = new()
+                ApplicationUser usr = new()
                 {
                     UserProperties = user,
                     Developer = developer,

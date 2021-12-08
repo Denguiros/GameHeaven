@@ -1,12 +1,14 @@
 ﻿using GameHeaven.Dtos.DeveloperDtos;
+using GameHeaven.Dtos.GameDtos;
 using GameHeaven.Dtos.PublisherDtos;
+using GameHeaven.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace GameHeaven.Entities
 {
-    public class User 
+    public class ApplicationUser : ViewModelBase
     {
         public IdentityUser UserProperties { get; set; }
         [DisplayName("Publisher")]
@@ -15,5 +17,12 @@ namespace GameHeaven.Entities
         public DeveloperDto Developer { get; set; }
         [DisplayName("Roles")]
         public IList<string> Roles { get; set; }
+        public IList<GameDto> OwnedGames { get; set; }
+        public string ProfilePicturePath { get; set; }
+        public string CoverPath { get; set; }
+        public string FacebookLink { get; set; }
+        public string InstagramLink { get; set; }
+        public string TwitterLink { get; set; }
+
     }
 }

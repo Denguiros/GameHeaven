@@ -1,0 +1,193 @@
+﻿@model GameHeaven.Entities.ApplicationUser
+
+<div class="
+          nk-header-title
+          nk-header-title-sm
+          nk-header-title-parallax
+          nk-header-title-parallax-opacity
+        ">
+    <div class="bg-image op-8">
+        @if (@Model.CoverPath is not null)
+        {
+            <img src="@Model.CoverPath" alt="" class="jarallax-img" />
+        }
+        else
+        {
+            <img src="~/images/3.jpg" alt="" class="jarallax-img" />
+        }
+    </div>
+    <div class="nk-header-table">
+        <div class="nk-header-table-cell">
+            <div class="container"></div>
+        </div>
+    </div>
+</div>
+<!-- END: Header Title -->
+
+<div class="container">
+    <div class="nk-social-profile nk-social-profile-container-offset">
+        <div class="row">
+            <div class="col-md-5 col-lg-3">
+                <div class="nk-social-profile-avatar">
+                    <a href="#">
+                        @if (@Model.ProfilePicturePath is not null)
+                        {
+                            <img src="@Model.ProfilePicturePath" alt="nK" />
+                        }
+                        else
+                        {
+                            <img src="~/images/2.jpg" alt="nK" />
+                        }
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-7 col-lg-9">
+                <div class="nk-social-profile-info">
+                    <div class="nk-gap-2"></div>
+                    <h1 class="nk-social-profile-info-name">@Model.UserProperties.UserName</h1>
+                    <div class="nk-social-profile-info-actions">
+                        <a href="#" class="nk-btn link-effect-4">Facebook</a>
+                        <a href="#" class="nk-btn link-effect-4">Instagram</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row vertical-gap">
+        <div class="col-lg-3">
+            <!--
+                START: Sidebar
+
+                Additional Classes:
+                    .nk-sidebar-left
+                    .nk-sidebar-right
+                    .nk-sidebar-sticky
+            -->
+            <aside class="nk-sidebar nk-sidebar-left nk-sidebar-sticky">
+                <div class="nk-gap-2"></div>
+
+                <div class="nk-accordion d-lg-none"
+                     id="nk-social-menu-mobile"
+                     role="tablist"
+                     aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"
+                             role="tab"
+                             id="nk-social-menu-mobile-1-heading">
+                            <a data-toggle="collapse"
+                               data-parent="#nk-social-menu-mobile"
+                               href="#nk-social-menu-mobile-1"
+                               aria-expanded="true"
+                               aria-controls="nk-social-menu-mobile-1"
+                               class="collapsed">
+                                Menu
+                            </a>
+                        </div>
+                        <div id="nk-social-menu-mobile-1"
+                             class="panel-collapse collapse"
+                             role="tabpanel"
+                             aria-labelledby="nk-social-menu-mobile-1-heading">
+                            <div class="nk-social-menu">
+                                <ul>
+                                    <li class="">
+                                        <a href="social-user-activity.html"> Activity</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="social-user-notifications.html">
+                                            Notifications
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="social-user-messages.html">
+                                            Messages<span class="nk-badge">192</span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="social-user-friends.html">
+                                            Friends<span class="nk-badge">19</span>
+                                        </a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="social-user-groups.html">
+                                            Groups<span class="nk-badge">2</span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="forum.html"> Forum</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="social-user-settings.html"> Settings</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nk-gap-4 d-none d-lg-block"></div>
+            </aside>
+            <!-- END: Sidebar -->
+        </div>
+        <div class="col-lg-9">
+            <div class="nk-gap-2 d-none d-lg-block"></div>
+            <div class="nk-social-menu-inline">
+                <ul>
+                    <li class="active">
+                        <a href="social-user-groups.html">Owned Games</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="nk-social-container">
+                <div class="nk-gap"></div>
+
+                <!-- START: Groups -->
+                <div class="nk-gap"></div>
+
+                <ul class="nk-social-groups">
+                    @if (Model.OwnedGames is null)
+                    {
+                        <li>
+                            <div class="nk-social-groups-content">
+                                <div class="nk-social-groups-info">
+                                    <div class="nk-social-groups-name">None</div>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                    else
+
+                    {
+                        @foreach (var game in Model.OwnedGames)
+                        {
+                            <li>
+                                <div class="nk-social-groups-avatar">
+                                    <a href="#">
+                                        <img src="@game.CoverPath" alt="" />
+                                    </a>
+                                </div>
+                                <div class="nk-social-groups-content">
+                                    <div class="nk-social-groups-info">
+                                        <div class="nk-social-groups-name">
+                                            <a href="#">@game.Name</a>
+                                        </div>
+                                        <div class="nk-social-groups-description">
+                                            @game.Description
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    }
+
+
+                </ul>
+
+                <div class="nk-gap"></div>
+                <!-- END: Groups -->
+            </div>
+            <div class="nk-gap-4"></div>
+        </div>
+    </div>
+    <div class="nk-gap-4"></div>
+    <div class="nk-gap-3"></div>
+</div>

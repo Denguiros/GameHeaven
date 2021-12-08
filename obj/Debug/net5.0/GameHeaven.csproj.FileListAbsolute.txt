@@ -491,3 +491,6 @@ C:\Users\Denguiros\source\repos\GameHeaven\bin\Debug\net5.0\Microsoft.IdentityMo
 C:\Users\Denguiros\source\repos\GameHeaven\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\Denguiros\source\repos\GameHeaven\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\Denguiros\source\repos\GameHeaven\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Denguiros\source\repos\GameHeaven\obj\Debug\net5.0\Razor\Areas\Admin\Views\Payment\Index.cshtml.g.cs
+C:\Users\Denguiros\source\repos\GameHeaven\obj\Debug\net5.0\Razor\Views\User\Index.cshtml.g.cs
+C:\Users\Denguiros\source\repos\GameHeaven\obj\Debug\net5.0\Razor\Views\User\Edit.cshtml.g.cs

@@ -88,7 +88,9 @@ namespace GameHeaven
             app.UseStatusCodePages(async context => {
                 var response = context.HttpContext.Response;
 
-                if (response.StatusCode == (int)HttpStatusCode.Unauthorized)
+                if (response.StatusCode == (int)HttpStatusCode.Unauthorized ||
+                    response.StatusCode == (int)HttpStatusCode.Forbidden    
+                )
                     response.Redirect("/Login");
             });
             app.UseRouting();

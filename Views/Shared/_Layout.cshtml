@@ -1,5 +1,14 @@
-﻿@using GameHeaven.ViewModels
+﻿@using GameHeaven.Entities
+@using GameHeaven.ViewModels
 @model ViewModelBase
+
+
+
+@{
+    var user = Context.Session.GetObject<ApplicationUser>("User");
+}
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -82,34 +91,34 @@
                     import { ethers, Contract } from "/js/ethers-5.2.esm.min.js";
                     window.ethers = ethers;
                           const getBlockchain = () =>
-                new Promise((resolve, reject) => {
-                  window.addEventListener("load", async () => {
-                    if (window.ethereum) {
-                      await window.ethereum.enable();
-                      const provider = new ethers.providers.Web3Provider(window.ethereum);
-                      const signer = provider.getSigner();
-                      const signerAddress = await signer.getAddress();
+                //new Promise((resolve, reject) => {
+                //  window.addEventListener("load", async () => {
+                //    if (window.ethereum) {
+                //      await window.ethereum.enable();
+                //      const provider = new ethers.providers.Web3Provider(window.ethereum);
+                //      const signer = provider.getSigner();
+                //      const signerAddress = await signer.getAddress();
 
-                      const paymentProcessor = new Contract(
-                        PaymentProcessor.networks[window.ethereum.networkVersion].address,
-                        PaymentProcessor.abi,
-                        signer
-                      );
-                      const dai = new Contract(
-                        Dai.networks[window.ethereum.networkVersion].address, //for mainnet and public testnet replace by address of already deployed dai token
-                        Dai.abi,
-                        signer
-                      );
+                //      const paymentProcessor = new Contract(
+                //        PaymentProcessor.networks[window.ethereum.networkVersion].address,
+                //        PaymentProcessor.abi,
+                //        signer
+                //      );
+                //      const dai = new Contract(
+                //        Dai.networks[window.ethereum.networkVersion].address, //for mainnet and public testnet replace by address of already deployed dai token
+                //        Dai.abi,
+                //        signer
+                //      );
 
-                      resolve({ provider, paymentProcessor, dai });
-                    }
-                    resolve({
-                      provider: undefined,
-                      paymentProcessor: undefined,
-                      dai: undefined,
-                    });
-                  });
-                });
+                //      resolve({ provider, paymentProcessor, dai });
+                //    }
+                //    resolve({
+                //      provider: undefined,
+                //      paymentProcessor: undefined,
+                //      dai: undefined,
+                //    });
+                //  });
+                //});
                 var bc = await getBlockchain();
                 var paymentProcessor = bc.paymentProcessor;
                 var dai = bc.dai;
@@ -123,7 +132,7 @@
                         data: null,
                         success: async function (response) {
                             paymentResponse = response;
-                            console.log("Payment Response :"+ paymentResponse);
+                            console.log(paymentResponse.gameIds);
                             const API_URL = "http://localhost:4000";
                             var ids = "";
                             for(var i in paymentResponse.gameIds)
@@ -133,6 +142,7 @@
                                 else
                                 ids +=paymentResponse.gameIds[i];
                             }
+                            console.log(ids);
                             const response1 = await axios.get(`${API_URL}/api/getPaymentId/${paymentResponse.paymentId}?ids=[${ids}]`);
                             const tx1 = await dai.approve(paymentProcessor.address, items.price);
                             await tx1.wait();
@@ -190,7 +200,7 @@
                             console.log(message);
                         }
                       });
-                      
+
                   };
                   window.buy = buy;
 
@@ -890,46 +900,54 @@
                         </li>
 
 
-                        <li class="single-icon">
-                            <a href="#" class="nk-cart-toggle no-link-effect" onclick="getCart('@Url.Action("GetCart", "Cart")')">
-                                <span class="nk-icon-toggle">
-                                    <span class="nk-icon-toggle-front">
-                                        <span class="ion-android-cart"></span>
-                                        <span class="nk-badge" id="totalOfCartItems"></span>
+                        @if (user is not null)
+                        {
+
+                            <li class="single-icon">
+                                <a href="#" class="nk-cart-toggle no-link-effect" onclick="getCart('@Url.Action("GetCart", "Cart")')">
+                                    <span class="nk-icon-toggle">
+                                        <span class="nk-icon-toggle-front">
+                                            <span class="ion-android-cart"></span>
+                                            <span class="nk-badge" id="totalOfCartItems">0</span>
+                                        </span>
+                                        <span class="nk-icon-toggle-back">
+                                            <span class="nk-icon-close"></span>
+                                        </span>
                                     </span>
-                                    <span class="nk-icon-toggle-back">
-                                        <span class="nk-icon-close"></span>
+                                </a>
+                            </li>
+
+                        }
+                        @if (user is null)
+                        {
+                            <li class="single-icon">
+                                <a href="#" class="nk-sign-toggle no-link-effect">
+                                    <span class="nk-icon-toggle">
+                                        <span class="nk-icon-toggle-front">
+                                            <span class="fa fa-sign-in"></span>
+                                        </span>
+                                        <span class="nk-icon-toggle-back">
+                                            <span class="nk-icon-close"></span>
+                                        </span>
                                     </span>
-                                </span>
-                            </a>
-                        </li>
+
+                                </a>
+                            </li>
+                        }
 
 
-                        <li class="single-icon">
-                            <a href="#" class="nk-sign-toggle no-link-effect">
-                                <span class="nk-icon-toggle">
-                                    <span class="nk-icon-toggle-front">
-                                        <span class="fa fa-sign-in"></span>
+                        @if (user != null)
+                        {
+                            <li class="single-icon">
+                                <a href="#" class="no-link-effect" data-nav-toggle="#nk-side">
+                                    <span class="nk-icon-burger">
+                                        <span class="nk-t-1"></span>
+                                        <span class="nk-t-2"></span>
+                                        <span class="nk-t-3"></span>
                                     </span>
-                                    <span class="nk-icon-toggle-back">
-                                        <span class="nk-icon-close"></span>
-                                    </span>
-                                </span>
-                            </a>
-                        </li>
-
-
-
-                        <li class="single-icon">
-                            <a href="#" class="no-link-effect" data-nav-toggle="#nk-side">
-                                <span class="nk-icon-burger">
-                                    <span class="nk-t-1"></span>
-                                    <span class="nk-t-2"></span>
-                                    <span class="nk-t-3"></span>
-                                </span>
-                            </a>
-                        </li>
-
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -955,7 +973,7 @@
 
         <div class="nk-navbar-bg">
             <div class="bg-image">
-                <img src="~/images/bg-nav-side.jpg" alt="" class="jarallax-img">
+                <img src="~/images/bg-nav-side-right.jpg" alt="" class="jarallax-img">
             </div>
         </div>
 
@@ -972,85 +990,94 @@
 
                     <div class="nk-nav-row nk-nav-row-full nk-nav-row-center">
                         <ul class="nk-nav">
-                            <li class=" ">
-                                <a href="page-contact.html">
-                                    Contact
-                                </a>
-                            </li>
-                            <li class=" ">
-                                <a href="page-coming-soon.html">
-                                    Coming Soon
-                                </a>
-                            </li>
-                            <li class=" ">
-                                <a href="page-404.html">
-                                    404
-                                </a>
-                            </li>
-                            <li class=" ">
-                                <a href="page-age-check.html">
-                                    Age Check
-                                </a>
-                            </li>
-                            <li class=" nk-drop-item">
-                                <a href="#">
-                                    Sub Menu Example
-                                </a>
-                                <ul class="dropdown">
-                                    <li class=" ">
-                                        <a href="#1">
-                                            Sub Item 1
-                                        </a>
-                                    </li>
-                                    <li class=" nk-drop-item">
-                                        <a href="#2">
-                                            Sub Item 2
-                                        </a>
-                                        <ul class="dropdown">
+
+
+                            @if (user != null)
+                            {
+                                <li class=" ">
+
+                                    <a href="#">
+
+                                    </a>
+                                </li>
+                                <li class=" nk-drop-item">
+                                    <a href="#">
+                                        @user.UserProperties.UserName
+                                    </a>
+                                    <ul class="dropdown">
+                                        <li class=" ">
+                                            <a asp-area="" asp-controller="User" asp-action="Index">
+                                                Profile
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a asp-area="" asp-controller="User" asp-action="Edit">
+                                                Edit Profile
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="#2">
+                                                Logout
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class=" nk-drop-item">
+                                    <a href="#">
+                                        Advanced Options
+                                    </a>
+                                    <ul class="dropdown">
+                                        @if (user.Roles.Contains("Admin"))
+                                        {
                                             <li class=" ">
+
+                                                <a asp-area="Admin" asp-controller="Home" asp-action="Index">
+                                                    Admin Dashboard
+                                                </a>
+
+                                            </li>
+                                        }
+                                        @if (user.Publisher is not null)
+                                        {
+                                            <li class=" nk-drop-item">
+
                                                 <a href="#1">
-                                                    Sub Item 1
+                                                    @user.Publisher.Name
                                                 </a>
+                                                <ul class="dropdown">
+                                                    <li class=" ">
+                                                        <a href="#2">
+                                                            Visit Page
+                                                        </a>
+                                                    </li>
+                                                    <li class=" ">
+                                                        <a href="#2">
+                                                            Edit
+                                                        </a>
+                                                    </li>
+                                                    <li class=" ">
+                                                        <a href="#2">
+                                                            Unregister
+                                                        </a>
+                                                    </li>
+                                                </ul>
                                             </li>
+                                        }
+                                        else
+                                        {
                                             <li class=" ">
-                                                <a href="#2">
-                                                    Sub Item 2
+
+                                                <a href="#1">
+                                                    Register as publisher
                                                 </a>
+
                                             </li>
-                                        </ul>
-                                    </li>
-                                    <li class=" nk-drop-item">
-                                        <a href="#3">
-                                            Sub Item 3
-                                        </a>
-                                        <ul class="dropdown">
-                                            <li class=" ">
-                                                <a href="#">
-                                                    Sub Item
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class=" nk-drop-item">
-                                        <a href="#4">
-                                            Sub Item 4
-                                        </a>
-                                        <ul class="dropdown">
-                                            <li class=" ">
-                                                <a href="#">
-                                                    Sub Item
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
                         </ul>
-                    </div>
-                    <div class="nk-nav-row">
-                        <div class="nk-nav-footer">
-                            &copy; 2018 nK Group Inc. Developed in association with LoremInc. IpsumCompany, SitAmmetGroup, CumSit and related logos are registered trademarks. All Rights Reserved.
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -1154,10 +1181,19 @@
         </footer>
     </div>
     <!-- END: Footer -->
-    @Html.RenderPartialAsync("~/Views/Shared/_Authentication.cshtml");
-    @Html.RenderPartialAsync("~/Views/Shared/_Cart.cshtml");
-    @Html.RenderPartialAsync("~/Views/Shared/_Search.cshtml");
-    @Html.RenderPartialAsync("~/Views/Shared/_Share_Buttons.cshtml");
+    @{
+        await Html.RenderPartialAsync("~/Views/Shared/_Authentication.cshtml");
+    }
+    @{
+        await Html.RenderPartialAsync("~/Views/Shared/_Cart.cshtml");
+    }
+
+    @{
+        await Html.RenderPartialAsync("~/Views/Shared/_Search.cshtml");
+    }
+    @{
+        await Html.RenderPartialAsync("~/Views/Shared/_Share_Buttons.cshtml");
+    }
 
 
 

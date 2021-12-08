@@ -8,8 +8,23 @@ function callAPI(url, data, type = "POST") {
         url: url,
         data: data,
         success: function (response) {
-            console.log("Success");
-            total = updateCart(response);
+            updateCart(response);
+            console.log(response);
+            for (var msg in response.messages) {
+                toastr.options.closeButton = true;
+                toastr.options.closeMethod = 'fadeOut';
+                toastr.options.closeDuration = 300;
+                toastr.options.closeEasing = 'swing';
+                toastr.info(response.messages[msg]);
+
+            }
+            for (var msg in response.errors) {
+                toastr.options.closeButton = true;
+                toastr.options.closeMethod = 'fadeOut';
+                toastr.options.closeDuration = 300;
+                toastr.options.closeEasing = 'swing';
+                toastr.error(response.errors[msg]);
+            }
         },
         error: function (message) {
             console.log(message);
@@ -28,12 +43,9 @@ function getCart(url) {
 function updateCart(data) {
     var str = "";
     if (data.games == null || data.games.length < 1) {
-        str += `<h2> No items here</h2>
-
-                       
-
-`;
+        str += `<h2> No items here</h2>`;
         $("#cart").html(str);
+        $("#totalOfCartItems").html('0');
         return;
     }
     else {
@@ -86,7 +98,7 @@ function updateCart(data) {
 `
     $("#cart").html(str);
     var leng = data.games.length;
-    if (leng === undefined || leng=== null)
+    if (leng === undefined || leng === null)
         leng = 0;
     $("#totalOfCartItems").html(leng.toString());
 }

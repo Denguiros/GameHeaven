@@ -1,0 +1,98 @@
+﻿@model IEnumerable<GameHeaven.Dtos.PaymentDto.PaymentDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Payments</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PaymentId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Payer.UserName)
+                            </th>
+                            <th>Games</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Amount)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Date)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Paid)
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PaymentId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Payer.UserName)
+                            </th>
+                            <th>Games</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Amount)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Date)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Paid)
+                            </th>
+                        </tr>
+                    </tfoot>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PaymentId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Payer.UserName)
+                                </td>
+                                <td>
+                                    @{
+                                        var names = "";
+                                    }
+                                    @foreach (var game in item.Games)
+                                    {
+                                        names += game.Name + " \n";
+                                    }
+                                    @names
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Date)
+                                </td>
+                                <td>
+                                    @{var paid = item.Paid ? "Yes" : "No";}
+                                    @paid
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

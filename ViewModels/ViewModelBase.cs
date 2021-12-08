@@ -2,6 +2,7 @@
 using GameHeaven.Dtos.UserDtos;
 using GameHeaven.Dtos.Requests;
 using GameHeaven.Models;
+using GameHeaven.Dtos;
 
 namespace GameHeaven.ViewModels
 {
@@ -16,5 +17,6 @@ namespace GameHeaven.ViewModels
         public UserForgotPasswordRequestDto UserForgotPasswordRequestDto { get; set; }
         public string PaymentProcessor { get; set; }
         public object Dai { get; set; }
+        public UpdateUserDto UpdateUserDto { get; set; }
     }
 }

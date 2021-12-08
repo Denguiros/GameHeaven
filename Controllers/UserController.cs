@@ -22,63 +22,63 @@ namespace GameHeaven.Controllers
         // GET: UserProfileController
         public ActionResult Index()
         {
-            var viewModel = new HomeViewModel();
             if (TempData["ViewModelBase"] is not null)
             {
                 var viewModelBase = JsonConvert.DeserializeObject<ViewModelBase>(TempData["ViewModelBase"].ToString());
-                var user = HttpContext.Session.GetObject<ApplicationUser>("User");
+                var user = HttpContext.Session.GetObject<Entities.UserViewModel>("User");
                 user.Messages = viewModelBase.Messages;
                 return View(user);
             }
-            return View(HttpContext.Session.GetObject<ApplicationUser>("User"));
+            var userInSession = HttpContext.Session.GetObject<Entities.UserViewModel>("User");
+            return View(userInSession);
         }
         [HttpGet]
         public ActionResult Edit()
         {
-            var currentUser = HttpContext.Session.GetObject<ApplicationUser>("User");
+            var currentUser = HttpContext.Session.GetObject<Entities.UserViewModel>("User");
             UpdateUserDto updateUserDto = new()
             {
                 Email = currentUser.UserProperties.Email,
                 UserName = currentUser.UserProperties.UserName,
-                FacebookLink = currentUser.FacebookLink,
-                InstagramLink = currentUser.InstagramLink,
-                TwitterLink = currentUser.TwitterLink,
+                FacebookLink = currentUser.UserProperties.FacebookLink,
+                InstagramLink = currentUser.UserProperties.InstagramLink,
+                TwitterLink = currentUser.UserProperties.TwitterLink,
             };
             return View(updateUserDto);
         }
         [HttpPost]
-        public async Task<ActionResult> Edit(UpdateUserDto updateUserDto)
+        public async Task<ActionResult> Edit(UpdateUserDto updateUser)
         {
             if (ModelState.IsValid)
             {
                 List<(string, string)> filePaths = new();
-                if (updateUserDto.Cover != null)
+                if (updateUser.Cover != null)
                 {
                     var filePath = Path.GetTempPath();
-                    var p = Path.Combine(filePath, updateUserDto.Cover.FileName);
-                    using var stream = new FileStream(Path.Combine(filePath, updateUserDto.Cover.FileName), FileMode.Create);
-                    updateUserDto.Cover.CopyTo(stream);
+                    var p = Path.Combine(filePath, updateUser.Cover.FileName);
+                    using var stream = new FileStream(Path.Combine(filePath, updateUser.Cover.FileName), FileMode.Create);
+                    updateUser.Cover.CopyTo(stream);
                     stream.Close();
                     filePaths.Add((p, "Cover"));
                 }
-                if (updateUserDto.ProfilePicture != null)
+                if (updateUser.ProfilePicture != null)
                 {
                     var filePath = Path.GetTempPath();
-                    var p = Path.Combine(filePath, updateUserDto.ProfilePicture.FileName);
-                    using var stream = new FileStream(Path.Combine(filePath, updateUserDto.ProfilePicture.FileName), FileMode.Create);
-                    updateUserDto.ProfilePicture.CopyTo(stream);
+                    var p = Path.Combine(filePath, updateUser.ProfilePicture.FileName);
+                    using var stream = new FileStream(Path.Combine(filePath, updateUser.ProfilePicture.FileName), FileMode.Create);
+                    updateUser.ProfilePicture.CopyTo(stream);
                     stream.Close();
                     filePaths.Add((p, "ProfilePicture"));
                 }
                 List<(string, string)> variables = new();
-                variables.Add(("UserName", updateUserDto.UserName));
-                variables.Add(("Email", updateUserDto.Email));
-                variables.Add(("InstagramLink", updateUserDto.InstagramLink));
-                variables.Add(("FacebookLink", updateUserDto.FacebookLink));
-                variables.Add(("TwitterLink", updateUserDto.TwitterLink));
-                variables.Add(("Password", updateUserDto.Password));
+                variables.Add(("UserName", updateUser.UserName));
+                variables.Add(("Email", updateUser.Email));
+                variables.Add(("InstagramLink", updateUser.InstagramLink));
+                variables.Add(("FacebookLink", updateUser.FacebookLink));
+                variables.Add(("TwitterLink", updateUser.TwitterLink));
+                variables.Add(("Password", updateUser.Password));
                 var token = Request.Cookies[Constants.JWT.ToString()];
-                var userId = HttpContext.Session.GetObject<ApplicationUser>("User").UserProperties.Id;
+                var userId = HttpContext.Session.GetObject<Entities.UserViewModel>("User").UserProperties.Id;
                 var userResult = await Request<AuthResult>.PutAsync(APILinks.USERS_URL + "/UpdateUser/" + userId, null, "multipart/form-data", token: token, filePaths, variables: variables);
 
                 if (userResult.Success)
@@ -87,10 +87,10 @@ namespace GameHeaven.Controllers
                     HttpContext.Session.SetObject("User", userResult.User);
                     return RedirectToAction("Index");
                 }
-                updateUserDto.Errors = userResult.Errors;
-                return View(updateUserDto);
+                updateUser.Errors = userResult.Errors;
+                return View(updateUser);
             }
-            return View(updateUserDto);
+            return View(updateUser);
         }
     }
 

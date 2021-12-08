@@ -5,7 +5,7 @@
 
 
 @{
-    var user = Context.Session.GetObject<ApplicationUser>("User");
+    var user = Context.Session.GetObject<GameHeaven.Entities.UserViewModel>("User");
 }
 
 
@@ -1016,7 +1016,7 @@
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="#2">
+                                            <a asp-area="" asp-controller="Authetication" asp-action="Logout">
                                                 Logout
                                             </a>
                                         </li>
@@ -1043,7 +1043,7 @@
 
                                                 <a href="#1">
                                                     @user.Publisher.Name
-                                                </a>
+                                                </a>    
                                                 <ul class="dropdown">
                                                     <li class=" ">
                                                         <a href="#2">

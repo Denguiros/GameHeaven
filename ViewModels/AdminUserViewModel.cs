@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 namespace GameHeaven.ViewModels
 {
-    public class UserViewModel : ViewModelBase
+    public class AdminUserViewModel : ViewModelBase
     {
-        public ApplicationUser User { get; set; }
+        public Entities.UserViewModel User { get; set; }
         public IEnumerable<SelectListItem> Roles { get; set; }
         public List<GameDto> OwnedGames { get; set; }
     }

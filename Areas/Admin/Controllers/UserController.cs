@@ -21,10 +21,10 @@ namespace GameHeaven.Areas.Admin.Controllers
         public async Task<ActionResult> Index()
         {
             var token = Request.Cookies[Constants.JWT.ToString()];
-            var users = await Request<List<IdentityUser>>.GetAsync(APILinks.USERS_URL + "/GetAllUsers", token);
+            var users = await Request<List<ApplicationUser>>.GetAsync(APILinks.USERS_URL + "/GetAllUsers", token);
             var publishers = await Request<List<PublisherDto>>.GetAsync(APILinks.PUBLISHER_URL, token);
             var developers = await Request<List<DeveloperDto>>.GetAsync(APILinks.DEVELOPER_URL, token);
-            List<ApplicationUser> usr = new();
+            List<Entities.UserViewModel> usr = new();
             users.ForEach(u => usr.Add(new()
             {
                 UserProperties = u,
@@ -37,17 +37,17 @@ namespace GameHeaven.Areas.Admin.Controllers
         public async Task<ActionResult> Edit(string id)
         {
             var token = Request.Cookies[Constants.JWT.ToString()];
-            var user = await Request<IdentityUser>.GetAsync(APILinks.USERS_URL + "/GetUser/" + id, token);
+            var user = await Request<Entities.UserViewModel>.GetAsync(APILinks.USERS_URL + "/GetUser/" + id, token);
             if (user != null)
             {
-                var userRoles = await Request<List<string>>.GetAsync(APILinks.USERS_URL + "/GetUserRoles/" + user.Email, token);
-                ApplicationUser usr = new()
+                var userRoles = await Request<List<string>>.GetAsync(APILinks.USERS_URL + "/GetUserRoles/" + user.UserProperties.Email, token);
+                Entities.UserViewModel usr = new()
                 {
-                    UserProperties = user,
+                    UserProperties = user.UserProperties,
                     Roles = userRoles.Select(usrRole => usrRole).ToList(),
                 };
                 var allRoles = await Request<List<string>>.GetAsync(APILinks.USERS_URL + "/GetAllRoles", token);
-                UserViewModel userViewModel = new UserViewModel()
+                ViewModels.AdminUserViewModel userViewModel = new ViewModels.AdminUserViewModel()
                 {
                     User = usr,
                     Roles = allRoles.Select(role => new SelectListItem
@@ -64,7 +64,7 @@ namespace GameHeaven.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(UserViewModel userViewModel)
+        public async Task<IActionResult> Edit(ViewModels.AdminUserViewModel userViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -80,13 +80,13 @@ namespace GameHeaven.Areas.Admin.Controllers
         public async Task<ActionResult> Details(string id)
         {
             var token = Request.Cookies[Constants.JWT.ToString()];
-            var user = await Request<IdentityUser>.GetAsync(APILinks.USERS_URL + "/GetUser/" + id, token);
+            var user = await Request<ApplicationUser>.GetAsync(APILinks.USERS_URL + "/GetUser/" + id, token);
             if (user != null)
             {
 
                 var publisher = await Request<PublisherDto>.GetAsync(APILinks.PUBLISHER_URL + "/GetPublisherByUserId/" + id, token);
                 var developer = await Request<DeveloperDto>.GetAsync(APILinks.DEVELOPER_URL + "/GetDeveloperByUserId/" + id, token);
-                ApplicationUser usr = new()
+                Entities.UserViewModel usr = new()
                 {
                     UserProperties = user,
                     Developer = developer,
@@ -102,13 +102,13 @@ namespace GameHeaven.Areas.Admin.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             var token = Request.Cookies[Constants.JWT.ToString()];
-            var user = await Request<IdentityUser>.GetAsync(APILinks.USERS_URL + "/GetUser/" + id, token);
+            var user = await Request<ApplicationUser>.GetAsync(APILinks.USERS_URL + "/GetUser/" + id, token);
             if (user != null)
             {
 
                 var publisher = await Request<PublisherDto>.GetAsync(APILinks.PUBLISHER_URL + "/GetPublisherByUserId/" + id, token);
                 var developer = await Request<DeveloperDto>.GetAsync(APILinks.DEVELOPER_URL + "/GetDeveloperByUserId/" + id, token);
-                ApplicationUser usr = new()
+                Entities.UserViewModel usr = new()
                 {
                     UserProperties = user,
                     Developer = developer,

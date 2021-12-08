@@ -1,5 +1,6 @@
 ﻿@model GameHeaven.Dtos.UpdateUserDto
 
+
 <div class="nk-gap-4"></div>
 
 <div class="container">
@@ -12,7 +13,7 @@
                 <div class="nk-gap-1"></div>
 
                 <!-- START: Form 2 -->
-                <form asp-action="Edit" enctype="multipart/form-data" class="nk-form nk-form-ajax nk-form-style-1">
+                <form asp-action="Edit" class="nk-form nk-form-style-1" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="UserName" class="control-label"></label>
@@ -59,8 +60,6 @@
                         <input asp-for="ConfirmPassword" class="form-control" />
                         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                     </div>
-
-                    @Html.AntiForgeryToken()
                     <div class="form-group">
                         <input type="submit" value="Edit" class="nk-btn nk-btn-lg link-effect-4" />
                     </div>

@@ -1,4 +1,4 @@
-﻿@model GameHeaven.Entities.ApplicationUser
+﻿@model GameHeaven.Entities.UserViewModel
 
 <div class="
           nk-header-title
@@ -7,9 +7,9 @@
           nk-header-title-parallax-opacity
         ">
     <div class="bg-image op-8">
-        @if (@Model.CoverPath is not null)
+        @if (@Model.UserProperties.CoverPath is not null)
         {
-            <img src="@Model.CoverPath" alt="" class="jarallax-img" />
+            <img src="@Model.UserProperties.CoverPath" alt="" class="jarallax-img" style="object-fit: cover;" />
         }
         else
         {
@@ -30,9 +30,9 @@
             <div class="col-md-5 col-lg-3">
                 <div class="nk-social-profile-avatar">
                     <a href="#">
-                        @if (@Model.ProfilePicturePath is not null)
+                        @if (@Model.UserProperties.ProfilePicturePath is not null)
                         {
-                            <img src="@Model.ProfilePicturePath" alt="nK" />
+                            <img src="@Model.UserProperties.ProfilePicturePath" alt="nK" />
                         }
                         else
                         {
@@ -46,8 +46,19 @@
                     <div class="nk-gap-2"></div>
                     <h1 class="nk-social-profile-info-name">@Model.UserProperties.UserName</h1>
                     <div class="nk-social-profile-info-actions">
-                        <a href="#" class="nk-btn link-effect-4">Facebook</a>
-                        <a href="#" class="nk-btn link-effect-4">Instagram</a>
+                        @if(@Model.UserProperties.FacebookLink is not null)
+                        {
+                        <a href="@Model.UserProperties.FacebookLink" class="nk-btn link-effect-4">Facebook</a>
+                        }
+                        @if(@Model.UserProperties.TwitterLink is not null)
+                        {
+                        <a href="@Model.UserProperties.TwitterLink" class="nk-btn link-effect-4">Twitter</a>
+                        }
+                        @if(@Model.UserProperties.InstagramLink is not null)
+                        {
+                        <a href="@Model.UserProperties.InstagramLink" class="nk-btn link-effect-4">Instagram</a>
+                        }
+
                     </div>
                 </div>
             </div>

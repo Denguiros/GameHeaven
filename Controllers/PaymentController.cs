@@ -17,7 +17,7 @@ namespace GameHeaven.Controllers
         public async Task<IActionResult> AddPayment()
         {
             var token = Request.Cookies[Constants.JWT.ToString()];
-            var cart = await Request<Cart>.GetAsync(APILinks.CART_URL + "/" + HttpContext.Session.GetObject<ApplicationUser>("User").UserProperties.Id, token: token);
+            var cart = await Request<Cart>.GetAsync(APILinks.CART_URL + "/" + HttpContext.Session.GetObject<Entities.UserViewModel>("User").UserProperties.Id, token: token);
             double amount = 0;
             cart.Games.ForEach(game =>
             {
@@ -25,7 +25,7 @@ namespace GameHeaven.Controllers
             });
             CreatePaymentDto paymentDto = new()
             {
-                PayerId = HttpContext.Session.GetObject<ApplicationUser>("User").UserProperties.Id,
+                PayerId = HttpContext.Session.GetObject<Entities.UserViewModel>("User").UserProperties.Id,
                 GamesIds = cart.Games.Select(game => game.Id).ToList(),
                 Amount = (int)amount,
             };

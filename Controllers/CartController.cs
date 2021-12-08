@@ -17,7 +17,7 @@ namespace GameHeaven.Controllers
         public async Task<ActionResult> GetCart()
         {
             var token = Request.Cookies[Constants.JWT.ToString()];
-            var cart = await Request<Cart>.GetAsync(APILinks.CART_URL + "/" + HttpContext.Session.GetObject<ApplicationUser>("User").UserProperties.Id, token: token);
+            var cart = await Request<Cart>.GetAsync(APILinks.CART_URL + "/" + HttpContext.Session.GetObject<Entities.UserViewModel>("User").UserProperties.Id, token: token);
             return Ok(cart);
         }
 
@@ -25,9 +25,9 @@ namespace GameHeaven.Controllers
         [HttpPost]
         public async Task<ActionResult> Add(int gameId)
         {
-            if (HttpContext.Session.GetObject<ApplicationUser>("User") is null)
+            if (HttpContext.Session.GetObject<Entities.UserViewModel>("User") is null)
             {
-                return Ok(new ViewModelBase
+                return base.Ok(new ViewModelBase
                 {
                     Errors = new List<string>()
                     {
@@ -37,7 +37,7 @@ namespace GameHeaven.Controllers
             }
             UpdateCart cart = new()
             {
-                UserId = HttpContext.Session.GetObject<ApplicationUser>("User").UserProperties.Id,
+                UserId = HttpContext.Session.GetObject<Entities.UserViewModel>("User").UserProperties.Id,
                 GameId = gameId
             };
             var jsonObject = JsonConvert.SerializeObject(cart);
@@ -50,7 +50,7 @@ namespace GameHeaven.Controllers
         {
             UpdateCart cart = new()
             {
-                UserId = HttpContext.Session.GetObject<ApplicationUser>("User").UserProperties.Id,
+                UserId = HttpContext.Session.GetObject<Entities.UserViewModel>("User").UserProperties.Id,
                 GameId = gameId
             };
             var jsonObject = JsonConvert.SerializeObject(cart);

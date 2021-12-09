@@ -28,8 +28,8 @@ namespace GameHeaven.Areas.Admin.Controllers
             users.ForEach(u => usr.Add(new()
             {
                 UserProperties = u,
-                Developer = developers != null ? developers.FirstOrDefault(d => d.User.Id == u.Id) : null,
-                Publisher = publishers != null ? publishers.FirstOrDefault(p => p.User.Id == u.Id) : null,
+                Developer = developers != null ? developers.FirstOrDefault(d => d.User?.Id == u.Id) : null,
+                Publisher = publishers != null ? publishers.FirstOrDefault(p => p.User?.Id == u.Id) : null,
                 //Roles = await Request<List<string>>.GetAsync(APILinks.USERS_URL + "/GetUserRoles/" + u.Email, token)
             }));
             return View(usr);
@@ -37,13 +37,13 @@ namespace GameHeaven.Areas.Admin.Controllers
         public async Task<ActionResult> Edit(string id)
         {
             var token = Request.Cookies[Constants.JWT.ToString()];
-            var user = await Request<Entities.UserViewModel>.GetAsync(APILinks.USERS_URL + "/GetUser/" + id, token);
+            var user = await Request<ApplicationUser>.GetAsync(APILinks.USERS_URL + "/GetUser/" + id, token);
             if (user != null)
             {
-                var userRoles = await Request<List<string>>.GetAsync(APILinks.USERS_URL + "/GetUserRoles/" + user.UserProperties.Email, token);
+                var userRoles = await Request<List<string>>.GetAsync(APILinks.USERS_URL + "/GetUserRoles/" + user.Email, token);
                 Entities.UserViewModel usr = new()
                 {
-                    UserProperties = user.UserProperties,
+                    UserProperties = user,
                     Roles = userRoles.Select(usrRole => usrRole).ToList(),
                 };
                 var allRoles = await Request<List<string>>.GetAsync(APILinks.USERS_URL + "/GetAllRoles", token);

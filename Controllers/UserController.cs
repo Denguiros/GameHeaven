@@ -77,6 +77,8 @@ namespace GameHeaven.Controllers
                 variables.Add(("FacebookLink", updateUser.FacebookLink));
                 variables.Add(("TwitterLink", updateUser.TwitterLink));
                 variables.Add(("Password", updateUser.Password));
+                variables.Add(("ConfirmPassword", updateUser.ConfirmPassword));
+                variables.Add(("OldPassword", updateUser.OldPassword));
                 var token = Request.Cookies[Constants.JWT.ToString()];
                 var userId = HttpContext.Session.GetObject<Entities.UserViewModel>("User").UserProperties.Id;
                 var userResult = await Request<AuthResult>.PutAsync(APILinks.USERS_URL + "/UpdateUser/" + userId, null, "multipart/form-data", token: token, filePaths, variables: variables);

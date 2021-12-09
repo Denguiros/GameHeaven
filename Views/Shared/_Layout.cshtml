@@ -442,7 +442,7 @@
 
 
                         <li class="single-icon">
-                            <a href="#" class="nk-search-toggle no-link-effect">
+                            <a href="/game/search" class="nk-search-toggle no-link-effect">
                                 <span class="nk-icon-search"></span>
                             </a>
                         </li>
@@ -564,7 +564,7 @@
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a asp-area="" asp-controller="Authetication" asp-action="Logout">
+                                            <a href="@Url.Action("Logout","Authentication")">
                                                 Logout
                                             </a>
                                         </li>
@@ -594,18 +594,18 @@
                                                 </a>    
                                                 <ul class="dropdown">
                                                     <li class=" ">
-                                                        <a href="#2">
-                                                            Visit Page
+                                                        <a href="/publisher/@user.Publisher.Id">
+                                                            Visit Page 
                                                         </a>
                                                     </li>
                                                     <li class=" ">
-                                                        <a href="#2">
+                                                        <a href="/publisher/edit/@user.Publisher.Id">
                                                             Edit
                                                         </a>
-                                                    </li>
+                                                    </li>                                                  
                                                     <li class=" ">
-                                                        <a href="#2">
-                                                            Unregister
+                                                        <a href="/publisher/creategame">
+                                                            Add Game
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -615,7 +615,7 @@
                                         {
                                             <li class=" ">
 
-                                                <a href="#1">
+                                                <a href="/publisher/register">
                                                     Register as publisher
                                                 </a>
 

@@ -16,7 +16,6 @@ namespace GameHeaven.Dtos.PublisherDtos
         public string Description { get; set; }
         [Required]
         public IFormFile Cover { get; set; }
-        [Required]
         public string UserId { get; set; }
         public IdentityUser User { get; set; }
         public string WebsiteLink { get; set; }

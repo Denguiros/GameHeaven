@@ -1,4 +1,5 @@
 ﻿using GameHeaven.Dtos.PublisherDtos;
+using GameHeaven.Models;
 using GameHeaven.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +32,7 @@ namespace GameHeaven.Areas.Admin.Controllers
         public async Task<ActionResult> Create()
         {
             var token = Request.Cookies[Constants.JWT.ToString()];
-            var users = await Request<List<IdentityUser>>.GetAsync(APILinks.USERS_URL + "/GetAllUsers", token);
+            var users = await Request<List<ApplicationUser>>.GetAsync(APILinks.USERS_URL + "/GetAllUsers", token);
             PublisherViewModel publisherViewModel = new()
             {
                 Users = users.Select(user => new SelectListItem
@@ -82,7 +83,7 @@ namespace GameHeaven.Areas.Admin.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             var token = Request.Cookies[Constants.JWT.ToString()];
-            var users = await Request<List<IdentityUser>>.GetAsync(APILinks.USERS_URL + "/GetAllUsers", token);
+            var users = await Request<List<ApplicationUser>>.GetAsync(APILinks.USERS_URL + "/GetAllUsers", token);
             string link = APILinks.PUBLISHER_URL + "/" + id;
             var UpdatePublisherDto = await Request<UpdatePublisherDto>.GetAsync(link, token);
             PublisherViewModel publisherViewModel = new()
@@ -91,7 +92,7 @@ namespace GameHeaven.Areas.Admin.Controllers
                 {
                     Text = user.UserName,
                     Value = user.Id,
-                    Selected = UpdatePublisherDto.User.Id == user.Id ? true : false
+                    Selected = UpdatePublisherDto.User?.Id == user.Id ? true : false
                 }),
                 UpdatePublisher = UpdatePublisherDto,
             };

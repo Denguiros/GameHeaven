@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace GameHeaven.ViewModels
 {
-    public class GameViewModel
+    public class GameViewModel : ViewModelBase
     {
         public CreateGameDto CreateGame { get; set; }
         public UpdateGameDto UpdateGameDto { get; set; }

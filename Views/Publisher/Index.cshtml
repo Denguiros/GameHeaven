@@ -1,0 +1,154 @@
+﻿@model GameHeaven.Dtos.PublisherDtos.PublisherDto;
+@using GameHeaven.Dtos.GameDtos;
+@{
+
+    ViewData["Title"] = "Publisher page";
+}
+
+@{
+    List<GameDto> games = ViewBag.games;
+    var user = Context.Session.GetObject<GameHeaven.Entities.UserViewModel>("User");
+    
+}
+
+<div class="nk-main">
+
+    <div class="nk-header-title nk-header-title-sm nk-header-title-parallax nk-header-title-parallax-opacity">
+        <div class="bg-image">
+            <img src="@Model.CoverPath" alt="" class="jarallax-img">
+        </div>
+        <div class="nk-header-table">
+            <div class="nk-header-table-cell">
+                <div class="container">
+
+
+                    <h1 class="nk-title" style="color: grey"></h1>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="nk-gap-4"></div>
+    <div class="container">
+        <ul class="nk-forum">
+
+            <li>
+                <div class="nk-forum-icon">
+                    <span class="ion-ios-game-controller-b"></span>
+                </div>
+                <div class="nk-forum-title">
+                    <h3><a href="forum-topics.html">Publisher : @Model.Name</a></h3>
+                </div>
+            </li>
+
+
+            <li>
+                <div class="nk-forum-icon">
+                    <span class="ion-ios-game-controller-b"></span>
+                </div>
+                <div class="nk-forum-title">
+                    <h3><a href="forum-topics.html">Description</a></h3>
+                    <div class="nk-forum-title-sub">@Model.Description</div>
+                </div>
+            </li>
+
+            @if (@Model.WebsiteLink != null)
+            {
+                <li>
+                    <div class="nk-forum-icon">
+                        <span class="ion-ios-game-controller-b"></span>
+                    </div>
+                    <div class="nk-forum-title">
+                        <h3><a href="forum-topics.html">Website</a></h3>
+                        <div class="nk-forum-title-sub">@Model.WebsiteLink</div>
+                    </div>
+                </li>
+            }
+
+
+
+            <div class="container">
+                <div class="nk-gap-4"></div>
+
+                <div class="nk-store">
+
+                    <!-- START: Products List -->
+                    <div class="row no-gutters">
+
+                        @foreach (var game in games)
+                        {
+                            <div class="col-sm-6 col-lg-4">
+                                <!-- START: Product -->
+                            <div class="nk-product" data-mouse-parallax-z="2">
+                                    <div>
+                                        <div class="nk-carousel-3" data-size="1" data-mouse-parallax-z="3">
+                                            <div class="nk-carousel-inner nk-popup-gallery">
+                                                @foreach (var image in game.ImagesPath.Split(","))
+                                                {
+                                                    if (image != string.Empty)
+                                                    {
+
+                                                        <div>
+                                                            <div>
+                                                                <img class="nk-img-stretch" src="@image" alt="">
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                }
+
+                                            </div>
+                                        </div>
+                                        <h2 class="nk-product-title h5" data-mouse-parallax-z="1"><a asp-controller="Game" asp-action="Index" asp-route-id="@game.Id">@game.Name</a></h2>
+
+
+                                        <span class="nk-product-rating">
+                                            <span class="nk-product-rating-front" style="width: 90%;">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </span>
+                                            <span class="nk-product-rating-back">
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            </span>
+                                        </span>
+
+
+                                        <div class="nk-product-bottom">
+                                            <div>
+                                                <div class="nk-product-price">$@game.Price</div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    @if (Model.User.Id == user.UserProperties.Id)
+                                    {
+                                        <div>
+                                            <a class="nk-btn nk-btn-lg nk-btn-rounded nk-btn-outline nk-btn-color-main-1" href="editgame/@game.Id">Edit</a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <!-- END: Product -->
+                        }
+                    </div>
+                </div>
+                <!-- END: Products List -->
+            </div>
+
+
+
+        </ul>
+    </div>
+</div>
+
+
+<div class="nk-gap-4"></div>

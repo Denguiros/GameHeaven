@@ -1,0 +1,74 @@
+﻿@model GameHeaven.Dtos.PublisherDtos.CreatePublisherDto
+
+@{
+    ViewData["Title"] = "Register as publisher";
+}
+
+
+<div class="nk-gap-4"></div>
+
+<div class="container">
+
+    <div class="row vertical-gap">
+
+        <div class="col-lg-12">
+            <div class="nk-box-3">
+                <h2 class="nk-title h3 text-center">Register as Publisher</h2>
+                <div class="nk-gap-1"></div>
+                <form asp-action="Add" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Cover" class="control-label"></label>
+                        <input asp-for="Cover" class="form-control" accept="image/*" />
+                        <span asp-validation-for="Cover" class="text-danger"></span>
+                    </div>
+                    <div class="row vertical-gap">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="WebsiteLink" class="control-label"></label>
+                                <input asp-for="WebsiteLink" class="form-control" />
+                                <span asp-validation-for="WebsiteLink" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="FacebookLink" class="control-label"></label>
+                                <input asp-for="FacebookLink" class="form-control" />
+                                <span asp-validation-for="FacebookLink" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="TwitterLink" class="control-label"></label>
+                                <input asp-for="TwitterLink" class="form-control" />
+                                <span asp-validation-for="TwitterLink" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="nk-btn nk-btn-lg nk-btn-rounded nk-btn-outline nk-btn-color-main-1" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("~/Views/Shared/_ValidationScriptsPartial.cshtml");
+}
+}
+
+

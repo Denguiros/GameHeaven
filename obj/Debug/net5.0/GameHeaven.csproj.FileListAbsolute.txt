@@ -495,3 +495,10 @@ C:\Users\Denguiros\source\repos\GameHeaven\obj\Debug\net5.0\Razor\Areas\Admin\Vi
 C:\Users\Denguiros\source\repos\GameHeaven\obj\Debug\net5.0\Razor\Views\User\Index.cshtml.g.cs
 C:\Users\Denguiros\source\repos\GameHeaven\obj\Debug\net5.0\Razor\Views\User\Edit.cshtml.g.cs
 C:\Users\Denguiros\source\repos\GameHeaven\obj\Debug\net5.0\Razor\Views\Game\Index.cshtml.g.cs
+C:\Users\Denguiros\source\repos\GameHeaven\obj\Debug\net5.0\Razor\Views\Developer\Index.cshtml.g.cs
+C:\Users\Denguiros\source\repos\GameHeaven\obj\Debug\net5.0\Razor\Views\Publisher\Index.cshtml.g.cs
+C:\Users\Denguiros\source\repos\GameHeaven\obj\Debug\net5.0\Razor\Views\Publisher\Edit.cshtml.g.cs
+C:\Users\Denguiros\source\repos\GameHeaven\obj\Debug\net5.0\Razor\Views\Publisher\Create.cshtml.g.cs
+C:\Users\Denguiros\source\repos\GameHeaven\obj\Debug\net5.0\Razor\Views\Publisher\CreateGame.cshtml.g.cs
+C:\Users\Denguiros\source\repos\GameHeaven\obj\Debug\net5.0\Razor\Views\Publisher\EditGame.cshtml.g.cs
+C:\Users\Denguiros\source\repos\GameHeaven\obj\Debug\net5.0\Razor\Views\Game\Search.cshtml.g.cs

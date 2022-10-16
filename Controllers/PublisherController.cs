@@ -40,6 +40,7 @@ namespace GameHeaven.Controllers
                 pub.Errors = viewModelBase.Errors;
                 pub.Messages = viewModelBase.Messages;
                 pub.Success = viewModelBase.Success;
+                pub.Success = viewModelBase.Success;
             }
             if (pub.Success)
             {
